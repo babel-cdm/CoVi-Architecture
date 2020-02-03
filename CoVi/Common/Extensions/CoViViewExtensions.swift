@@ -78,7 +78,7 @@ extension UIView {
             if let radius = radius {
                 layer.cornerRadius = radius
             } else {
-                layer.cornerRadius = layer.frame.width / 2
+                layer.cornerRadius = layer.frame.height / 2
             }
         }
 
@@ -88,17 +88,32 @@ extension UIView {
         }
     }
 
-    public func addSubview(childView: UIView) {
+    public enum ConstraintType {
+        case container
+        case center
+    }
+
+    public func addSubview(childView: UIView, constraintType: ConstraintType) {
         addSubview(childView)
-        addContainerConstraints(childView: childView)
+        switch constraintType {
+        case .container:
+            addContainerConstraints(childView: childView)
+        case .center:
+            addCenterConstraints(childView: childView)
+        }
     }
 
-    public func insertSubview(childView: UIView, belowSubview: UIView) {
+    public func insertSubview(childView: UIView, belowSubview: UIView, constraintType: ConstraintType) {
         insertSubview(childView, belowSubview: belowSubview)
-        addContainerConstraints(childView: childView)
+        switch constraintType {
+        case .container:
+            addContainerConstraints(childView: childView)
+        case .center:
+            addCenterConstraints(childView: childView)
+        }
     }
 
-    private func addContainerConstraints(childView: UIView) {
+    public func addContainerConstraints(childView: UIView) {
         // Adding Constraints to the superview
         childView.translatesAutoresizingMaskIntoConstraints = false
         let topConstraint = NSLayoutConstraint(item: childView, attribute: .top, relatedBy: .equal,
@@ -115,7 +130,19 @@ extension UIView {
                                                     multiplier: 1, constant: 0)
 
         addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-        layoutIfNeeded()
+    }
+
+    public func addCenterConstraints(childView: UIView) {
+        // Adding Constraints to the superview
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        let centerHorConstraint = NSLayoutConstraint(item: childView, attribute: .centerX, relatedBy: .equal,
+                                                     toItem: self, attribute: .centerX,
+                                                     multiplier: 1, constant: 0)
+        let centerVerConstraint = NSLayoutConstraint(item: childView, attribute: .centerY, relatedBy: .equal,
+                                                     toItem: self, attribute: .centerY,
+                                                     multiplier: 1, constant: 0)
+
+        addConstraints([centerHorConstraint, centerVerConstraint])
     }
 
 }
@@ -169,7 +196,7 @@ extension UIViewController {
 
     public func add(childViewController: UIViewController, viewContainer: UIView) {
         addChild(childViewController)
-        viewContainer.addSubview(childView: childViewController.view)
+        viewContainer.addSubview(childView: childViewController.view, constraintType: .container)
         childViewController.didMove(toParent: self)
     }
 

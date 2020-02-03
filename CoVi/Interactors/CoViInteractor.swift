@@ -8,20 +8,7 @@
 
 import Foundation
 
-public protocol CoViInteractorProtocol: CoViDisposable {
-    associatedtype Output
-    func execute(onSuccess: ((Output) -> Void)?,
-                 onFailure: ((Error) -> Void)?,
-                 onStopped: (() -> Void)?) -> CoViDisposable
-    func execute(_ parameter: CoViInteractorParameterProtocol,
-                 onSuccess: ((Output) -> Void)?,
-                 onFailure: ((Error) -> Void)?,
-                 onStopped: (() -> Void)?) -> CoViDisposable
-}
-
-public protocol CoViInteractorParameterProtocol: class {}
-
-open class CoViInteractor<Output>: CoViInteractorProtocol {
+open class CoViInteractor<Input, Output, Process>: CoViDisposable {
 
     // MARK: - Properties
 
@@ -29,6 +16,10 @@ open class CoViInteractor<Output>: CoViInteractorProtocol {
     private var onCompletionStopped: (() -> Void)?
 
     private var coviDisposeBag: CoViDisposeBag?
+
+    open var dispatchQueue: DispatchQueue {
+        return DispatchQueue.global(qos: .background)
+    }
 
     // MARK: - Initializer
 
@@ -46,24 +37,19 @@ open class CoViInteractor<Output>: CoViInteractorProtocol {
 
     // MARK: - Functions
 
-    public func execute(onSuccess: ((Output) -> Void)?,
-                        onFailure: ((Error) -> Void)?,
-                        onStopped: (() -> Void)?) -> CoViDisposable {
-        return executeInteractor(nil, onSuccess: onSuccess, onFailure: onFailure, onStopped: onStopped)
-    }
-
-    public func execute(_ parameter: CoViInteractorParameterProtocol,
-                        onSuccess: ((Output) -> Void)?,
-                        onFailure: ((Error) -> Void)?,
-                        onStopped: (() -> Void)?) -> CoViDisposable {
-        return executeInteractor(parameter, onSuccess: onSuccess, onFailure: onFailure, onStopped: onStopped)
+    public func execute(_ parameter: Input? = nil,
+                        onSuccess: ((Output) -> Void)? = nil,
+                        onFailure: ((Error) -> Void)? = nil,
+                        onProcess: ((Process) -> Void)? = nil,
+                        onStopped: (() -> Void)? = nil) -> CoViDisposable {
+        return executeInteractor(parameter, onSuccess: onSuccess, onFailure: onFailure, onProcess: onProcess, onStopped: onStopped)
     }
 
     public func disposed(by bag: CoViDisposeBag) {
         self.coviDisposeBag = bag
     }
 
-    open func dispose() {
+    public func dispose() {
         if let onStopped = onCompletionStopped, !isStopped {
             onStopped()
         }
@@ -72,21 +58,33 @@ open class CoViInteractor<Output>: CoViInteractorProtocol {
         coviDisposeBag = nil
     }
 
-    private func executeInteractor(_ parameter: CoViInteractorParameterProtocol?,
+    private func executeInteractor(_ parameter: Input?,
                                    onSuccess: ((Output) -> Void)?,
                                    onFailure: ((Error) -> Void)?,
+                                   onProcess: ((Process) -> Void)?,
                                    onStopped: (() -> Void)?) -> CoViDisposable {
         isStopped = false
         onCompletionStopped = onStopped
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        dispatchQueue.async { [weak self] in
             guard let strongSelf = self else {
                 return
             }
 
-            strongSelf.handle(parameter: parameter,
-                              onSuccess: strongSelf.onCompletion(onSuccess),
-                              onFailure: strongSelf.onCompletion(onFailure))
+            let onSuccessCompletion = strongSelf.onCompletion(onSuccess)
+            let onFailureCompletion = strongSelf.onCompletion(onFailure)
+            let onProcessCompletion = strongSelf.onCompletion(onProcess)
+
+            if let parameter = parameter, Input.self != Void.self {
+                strongSelf.handle(parameter: parameter,
+                                  onSuccess: onSuccessCompletion,
+                                  onFailure: onFailureCompletion,
+                                  onProcess: onProcessCompletion)
+            } else {
+                strongSelf.handle(onSuccess: onSuccessCompletion,
+                                  onFailure: onFailureCompletion,
+                                  onProcess: onProcessCompletion)
+            }
         }
 
         return self
@@ -108,6 +106,13 @@ open class CoViInteractor<Output>: CoViInteractorProtocol {
         }
     }
 
+    private func getVoidCompletion<T>(_ onCompletion: @escaping (T) -> Void) -> (() -> Void)? {
+        if let onVoidCompletion = onCompletion as? ((()) -> Void) {
+            return { onVoidCompletion(()) }
+        }
+        return nil
+    }
+
     @objc private func disposeBagValueDisposed(_ notification: Notification) {
         if let userInfo = notification.userInfo as? [String: Any],
             let bag = userInfo[disposeBagNotificationParameter] as? CoViDisposeBag {
@@ -117,8 +122,30 @@ open class CoViInteractor<Output>: CoViInteractorProtocol {
         }
     }
 
-    open func handle(parameter: CoViInteractorParameterProtocol?,
+    open func handle(parameter: Input,
                      onSuccess: @escaping (Output) -> Void,
-                     onFailure: @escaping (Error) -> Void) {}
+                     onFailure: @escaping (Error) -> Void,
+                     onProcess: @escaping (Process) -> Void) {
+        if let onSuccessCompletion = getVoidCompletion(onSuccess) {
+            handle(parameter: parameter, onSuccess: onSuccessCompletion, onFailure: onFailure, onProcess: onProcess)
+        }
+    }
+
+    open func handle(onSuccess: @escaping (Output) -> Void,
+                     onFailure: @escaping (Error) -> Void,
+                     onProcess: @escaping (Process) -> Void) {
+        if let onSuccessCompletion = getVoidCompletion(onSuccess) {
+            handle(onSuccess: onSuccessCompletion, onFailure: onFailure, onProcess: onProcess)
+        }
+    }
+
+    open func handle(parameter: Input,
+                     onSuccess: @escaping () -> Void,
+                     onFailure: @escaping (Error) -> Void,
+                     onProcess: @escaping (Process) -> Void) {}
+
+    open func handle(onSuccess: @escaping () -> Void,
+                     onFailure: @escaping (Error) -> Void,
+                     onProcess: @escaping (Process) -> Void) {}
 
 }

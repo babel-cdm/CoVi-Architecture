@@ -8,10 +8,7 @@
 
 import UIKit
 
-public protocol CoViViewProtocol: class {
-    func showLoading(parentView: UIView?, parameters: Any...)
-    func hideLoading()
-}
+public protocol CoViViewProtocol: class {}
 
 private protocol CoViViewDependencies: class {
     associatedtype Presenter
@@ -63,7 +60,7 @@ open class CoViViewController<Presenter>: UIViewController,
         // Add listener to register the pop gesture
         navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(handlePopGesture))
         // Add listener to register the dismiss gesture
-        navigationController?.presentationController?.delegate = self
+        //navigationController?.presentationController?.delegate = self // Commented because it causes memory leak with iOS <= 13.2
     }
 
     override open func viewDidAppear(_ animated: Bool) {
@@ -80,12 +77,6 @@ open class CoViViewController<Presenter>: UIViewController,
         super.viewDidDisappear(animated)
         presenter.didDisappear()
     }
-
-    // MARK: - CoViViewProtocol
-
-    open func showLoading(parentView: UIView?, parameters: Any...) {}
-
-    open func hideLoading() {}
 
     // MARK: - BindableType
 
