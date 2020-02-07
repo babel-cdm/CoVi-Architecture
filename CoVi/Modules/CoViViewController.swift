@@ -8,10 +8,7 @@
 
 import UIKit
 
-public protocol CoViViewProtocol: class {
-    func showLoading(parentView: UIView?, parameters: Any...)
-    func hideLoading()
-}
+public protocol CoViViewProtocol: class {}
 
 private protocol CoViViewDependencies: class {
     associatedtype Presenter
@@ -47,11 +44,20 @@ open class CoViViewController<Presenter>: UIViewController,
 
     // MARK: - Lifecycle
 
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if hasBaseVerticalScrollView {
+            resizeBaseVerticalScrollViewIfNeeded()
+        }
+    }
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         presenter.didLoad()
 
         hideKeyboardWhenTappedAround()
+        checkBaseVerticalScrollView()
     }
 
     override open func viewWillAppear(_ animated: Bool) {
@@ -63,7 +69,7 @@ open class CoViViewController<Presenter>: UIViewController,
         // Add listener to register the pop gesture
         navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(handlePopGesture))
         // Add listener to register the dismiss gesture
-        navigationController?.presentationController?.delegate = self
+        //navigationController?.presentationController?.delegate = self // Commented because it causes memory leak with iOS <= 13.2
     }
 
     override open func viewDidAppear(_ animated: Bool) {
@@ -80,12 +86,6 @@ open class CoViViewController<Presenter>: UIViewController,
         super.viewDidDisappear(animated)
         presenter.didDisappear()
     }
-
-    // MARK: - CoViViewProtocol
-
-    open func showLoading(parentView: UIView?, parameters: Any...) {}
-
-    open func hideLoading() {}
 
     // MARK: - BindableType
 
@@ -392,6 +392,23 @@ open class CoViViewController<Presenter>: UIViewController,
         btnItem.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
 
         return UIBarButtonItem(customView: btnItem)
+    }
+
+    private func resizeBaseVerticalScrollViewIfNeeded() {
+        if let scrollView = view as? UIScrollView,
+            scrollView.contentLayoutGuide.layoutFrame.height < scrollView.safeAreaLayoutGuide.layoutFrame.height &&
+                scrollView.contentLayoutGuide.layoutFrame.height > 0 {
+            let contentView = scrollView.subviews.first ?? scrollView
+            let scrollViewConstraints = CoViViewUtils.getContainerConstraints(item: contentView,
+                                                                              toItem: scrollView.safeAreaLayoutGuide)
+
+            scrollView.constraints.forEach { constraint in
+                if constraint.secondItem === scrollView.contentLayoutGuide {
+                    scrollView.removeConstraint(constraint)
+                }
+            }
+            scrollView.addConstraints(scrollViewConstraints)
+        }
     }
 
     // MARK: - UIGestureRecognizerDelegate functions

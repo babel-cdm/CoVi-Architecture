@@ -78,7 +78,7 @@ extension UIView {
             if let radius = radius {
                 layer.cornerRadius = radius
             } else {
-                layer.cornerRadius = layer.frame.width / 2
+                layer.cornerRadius = layer.frame.height / 2
             }
         }
 
@@ -88,34 +88,45 @@ extension UIView {
         }
     }
 
-    public func addSubview(childView: UIView) {
+    public enum ConstraintType {
+        case container
+        case center
+    }
+
+    public func addSubview(childView: UIView, constraintType: ConstraintType) {
         addSubview(childView)
-        addContainerConstraints(childView: childView)
+        switch constraintType {
+        case .container:
+            addContainerConstraints(childView: childView)
+        case .center:
+            addCenterConstraints(childView: childView)
+        }
     }
 
-    public func insertSubview(childView: UIView, belowSubview: UIView) {
+    public func insertSubview(childView: UIView, belowSubview: UIView, constraintType: ConstraintType) {
         insertSubview(childView, belowSubview: belowSubview)
-        addContainerConstraints(childView: childView)
+        switch constraintType {
+        case .container:
+            addContainerConstraints(childView: childView)
+        case .center:
+            addCenterConstraints(childView: childView)
+        }
     }
 
-    private func addContainerConstraints(childView: UIView) {
+    public func addContainerConstraints(childView: UIView) {
         // Adding Constraints to the superview
         childView.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = NSLayoutConstraint(item: childView, attribute: .top, relatedBy: .equal,
-                                               toItem: self, attribute: .top,
-                                               multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: childView, attribute: .bottom, relatedBy: .equal,
-                                                  toItem: self, attribute: .bottom,
-                                                  multiplier: 1, constant: 0)
-        let leadingConstraint = NSLayoutConstraint(item: childView, attribute: .leading, relatedBy: .equal,
-                                                   toItem: self, attribute: .leading,
-                                                   multiplier: 1, constant: 0)
-        let trailingConstraint = NSLayoutConstraint(item: childView, attribute: .trailing, relatedBy: .equal,
-                                                    toItem: self, attribute: .trailing,
-                                                    multiplier: 1, constant: 0)
+        let constraints = CoViViewUtils.getContainerConstraints(item: childView, toItem: self)
 
-        addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-        layoutIfNeeded()
+        addConstraints(constraints)
+    }
+
+    public func addCenterConstraints(childView: UIView) {
+        // Adding Constraints to the superview
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = CoViViewUtils.getCenterConstraints(item: childView, toItem: self)
+
+        addConstraints(constraints)
     }
 
 }
@@ -147,6 +158,10 @@ extension UIScrollView {
 
 extension UIViewController {
 
+    @objc open var hasBaseVerticalScrollView: Bool {
+        return false
+    }
+
     /// Get the name of the View Controller.
 
     public static var identifier: String {
@@ -161,6 +176,26 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
 
+    public func checkBaseVerticalScrollView() {
+        if hasBaseVerticalScrollView {
+            let scrollView = UIScrollView()
+            let contentView: UIView = view
+            scrollView.addSubview(contentView)
+
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            var scrollViewConstraints = CoViViewUtils.getContainerConstraints(item: contentView,
+                                                                              toItem: scrollView.contentLayoutGuide)
+            let widthConstraint = NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal,
+                                                     toItem: scrollView.frameLayoutGuide, attribute: .width,
+                                                     multiplier: 1, constant: 0)
+            scrollViewConstraints.append(widthConstraint)
+
+            scrollView.addConstraints(scrollViewConstraints)
+
+            view = scrollView
+        }
+    }
+
     /// Hide keyboard.
 
     @objc open func dismissKeyboard() {
@@ -169,7 +204,7 @@ extension UIViewController {
 
     public func add(childViewController: UIViewController, viewContainer: UIView) {
         addChild(childViewController)
-        viewContainer.addSubview(childView: childViewController.view)
+        viewContainer.addSubview(childView: childViewController.view, constraintType: .container)
         childViewController.didMove(toParent: self)
     }
 
