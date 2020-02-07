@@ -16,6 +16,7 @@
 		9F41B75B2320E94B006A5857 /* CoViWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F41B75A2320E94B006A5857 /* CoViWireframe.swift */; };
 		9F41B75E2320EA10006A5857 /* CoViApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F41B75D2320EA10006A5857 /* CoViApplication.swift */; };
 		9F70D5772342798B00353B8E /* CoViDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F70D5762342798B00353B8E /* CoViDisposeBag.swift */; };
+		9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */; };
 		9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		9F41B75A2320E94B006A5857 /* CoViWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViWireframe.swift; sourceTree = "<group>"; };
 		9F41B75D2320EA10006A5857 /* CoViApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViApplication.swift; sourceTree = "<group>"; };
 		9F70D5762342798B00353B8E /* CoViDisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViDisposeBag.swift; sourceTree = "<group>"; };
+		9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViViewUtils.swift; sourceTree = "<group>"; };
 		9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 				9F70D5752342796A00353B8E /* Disposable */,
 				9F41B74C2320E848006A5857 /* Constants */,
 				9F41B74D2320E84F006A5857 /* Extensions */,
+				9FBDA98B23ED9A01005039AC /* Utils */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -133,6 +136,14 @@
 				9F70D5762342798B00353B8E /* CoViDisposeBag.swift */,
 			);
 			path = Disposable;
+			sourceTree = "<group>";
+		};
+		9FBDA98B23ED9A01005039AC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		9FE5CD222326AAE0009B03FD /* Interactors */ = {
@@ -227,6 +238,7 @@
 				9F41B7552320E93A006A5857 /* CoViViewConstants.swift in Sources */,
 				9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */,
 				9F41B7522320E92A006A5857 /* CoViViewController.swift in Sources */,
+				9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */,
 				9F41B75B2320E94B006A5857 /* CoViWireframe.swift in Sources */,
 				9F41B7592320E942006A5857 /* CoViViewExtensions.swift in Sources */,
 				9F41B7532320E92A006A5857 /* CoViPresenter.swift in Sources */,

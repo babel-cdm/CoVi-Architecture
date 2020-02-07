@@ -116,33 +116,17 @@ extension UIView {
     public func addContainerConstraints(childView: UIView) {
         // Adding Constraints to the superview
         childView.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = NSLayoutConstraint(item: childView, attribute: .top, relatedBy: .equal,
-                                               toItem: self, attribute: .top,
-                                               multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: childView, attribute: .bottom, relatedBy: .equal,
-                                                  toItem: self, attribute: .bottom,
-                                                  multiplier: 1, constant: 0)
-        let leadingConstraint = NSLayoutConstraint(item: childView, attribute: .leading, relatedBy: .equal,
-                                                   toItem: self, attribute: .leading,
-                                                   multiplier: 1, constant: 0)
-        let trailingConstraint = NSLayoutConstraint(item: childView, attribute: .trailing, relatedBy: .equal,
-                                                    toItem: self, attribute: .trailing,
-                                                    multiplier: 1, constant: 0)
+        let constraints = CoViViewUtils.getContainerConstraints(item: childView, toItem: self)
 
-        addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        addConstraints(constraints)
     }
 
     public func addCenterConstraints(childView: UIView) {
         // Adding Constraints to the superview
         childView.translatesAutoresizingMaskIntoConstraints = false
-        let centerHorConstraint = NSLayoutConstraint(item: childView, attribute: .centerX, relatedBy: .equal,
-                                                     toItem: self, attribute: .centerX,
-                                                     multiplier: 1, constant: 0)
-        let centerVerConstraint = NSLayoutConstraint(item: childView, attribute: .centerY, relatedBy: .equal,
-                                                     toItem: self, attribute: .centerY,
-                                                     multiplier: 1, constant: 0)
+        let constraints = CoViViewUtils.getCenterConstraints(item: childView, toItem: self)
 
-        addConstraints([centerHorConstraint, centerVerConstraint])
+        addConstraints(constraints)
     }
 
 }
@@ -174,6 +158,10 @@ extension UIScrollView {
 
 extension UIViewController {
 
+    @objc open var hasBaseVerticalScrollView: Bool {
+        return false
+    }
+
     /// Get the name of the View Controller.
 
     public static var identifier: String {
@@ -186,6 +174,26 @@ extension UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+    }
+
+    public func checkBaseVerticalScrollView() {
+        if hasBaseVerticalScrollView {
+            let scrollView = UIScrollView()
+            let contentView: UIView = view
+            scrollView.addSubview(contentView)
+
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            var scrollViewConstraints = CoViViewUtils.getContainerConstraints(item: contentView,
+                                                                              toItem: scrollView.contentLayoutGuide)
+            let widthConstraint = NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal,
+                                                     toItem: scrollView.frameLayoutGuide, attribute: .width,
+                                                     multiplier: 1, constant: 0)
+            scrollViewConstraints.append(widthConstraint)
+
+            scrollView.addConstraints(scrollViewConstraints)
+
+            view = scrollView
+        }
     }
 
     /// Hide keyboard.

@@ -44,11 +44,20 @@ open class CoViViewController<Presenter>: UIViewController,
 
     // MARK: - Lifecycle
 
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if hasBaseVerticalScrollView {
+            resizeBaseVerticalScrollViewIfNeeded()
+        }
+    }
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         presenter.didLoad()
 
         hideKeyboardWhenTappedAround()
+        checkBaseVerticalScrollView()
     }
 
     override open func viewWillAppear(_ animated: Bool) {
@@ -383,6 +392,23 @@ open class CoViViewController<Presenter>: UIViewController,
         btnItem.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
 
         return UIBarButtonItem(customView: btnItem)
+    }
+
+    private func resizeBaseVerticalScrollViewIfNeeded() {
+        if let scrollView = view as? UIScrollView,
+            scrollView.contentLayoutGuide.layoutFrame.height < scrollView.safeAreaLayoutGuide.layoutFrame.height &&
+                scrollView.contentLayoutGuide.layoutFrame.height > 0 {
+            let contentView = scrollView.subviews.first ?? scrollView
+            let scrollViewConstraints = CoViViewUtils.getContainerConstraints(item: contentView,
+                                                                              toItem: scrollView.safeAreaLayoutGuide)
+
+            scrollView.constraints.forEach { constraint in
+                if constraint.secondItem === scrollView.contentLayoutGuide {
+                    scrollView.removeConstraint(constraint)
+                }
+            }
+            scrollView.addConstraints(scrollViewConstraints)
+        }
     }
 
     // MARK: - UIGestureRecognizerDelegate functions
