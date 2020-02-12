@@ -95,16 +95,21 @@ extension UIView {
 
     public func addSubview(childView: UIView, constraintType: ConstraintType) {
         addSubview(childView)
-        switch constraintType {
-        case .container:
-            addContainerConstraints(childView: childView)
-        case .center:
-            addCenterConstraints(childView: childView)
-        }
+        addConstraints(childView: childView, constraintType: constraintType)
     }
 
     public func insertSubview(childView: UIView, belowSubview: UIView, constraintType: ConstraintType) {
         insertSubview(childView, belowSubview: belowSubview)
+        addConstraints(childView: childView, constraintType: constraintType)
+    }
+
+    public func insertSubview(childView: UIView, at position: Int, constraintType: ConstraintType) {
+        insertSubview(childView, at: position)
+        addConstraints(childView: childView, constraintType: constraintType)
+    }
+
+    private func addConstraints(childView: UIView, constraintType: ConstraintType) {
+        childView.translatesAutoresizingMaskIntoConstraints = false
         switch constraintType {
         case .container:
             addContainerConstraints(childView: childView)
@@ -114,18 +119,12 @@ extension UIView {
     }
 
     public func addContainerConstraints(childView: UIView) {
-        // Adding Constraints to the superview
-        childView.translatesAutoresizingMaskIntoConstraints = false
         let constraints = CoViViewUtils.getContainerConstraints(item: childView, toItem: self)
-
         addConstraints(constraints)
     }
 
     public func addCenterConstraints(childView: UIView) {
-        // Adding Constraints to the superview
-        childView.translatesAutoresizingMaskIntoConstraints = false
         let constraints = CoViViewUtils.getCenterConstraints(item: childView, toItem: self)
-
         addConstraints(constraints)
     }
 

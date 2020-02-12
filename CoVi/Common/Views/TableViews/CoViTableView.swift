@@ -1,0 +1,223 @@
+//
+//  CoViTableView.swift
+//  ViperArchitecture
+//
+//  Created by Jorge Guilabert Ibáñez on 06/02/2020.
+//  Copyright © 2020 Babel. All rights reserved.
+//
+
+import UIKit
+
+open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
+
+    public typealias CellConfigurator = (UITableView, IndexPath) -> UITableViewCell
+
+    @objc(CellEditingStyle)
+    public enum CellEditingStyle: Int {
+        case none = 0
+        case delete = 1
+        case insert = 2
+    }
+
+    // MARK: - Properties
+
+    private var tableViewDataSource: CoViTableViewDataSource?
+    private var tableViewDelegate: CoViTableViewDelegate?
+    private var cellForRowAtConfigurator: CellConfigurator?
+
+    // MARK: - Functions
+
+    public func setupDataSource(_ dataSource: CoViTableViewDataSource?) {
+        self.dataSource = self
+        self.tableViewDataSource = dataSource
+    }
+
+    public func setupDelegate(_ delegate: CoViTableViewDelegate?) {
+        self.delegate = self
+        self.tableViewDelegate = delegate
+    }
+
+    public func reloadData(cellForRowAtConfigurator: @escaping CellConfigurator) {
+        self.cellForRowAtConfigurator = cellForRowAtConfigurator
+        self.reloadData()
+    }
+
+    // MARK: - UITableViewDataSource
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewDataSource?.numberOfRowsInSection(tableView.tag, section) ?? 0
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
+        if let cellForRowAtConfigurator = cellForRowAtConfigurator {
+            cell = cellForRowAtConfigurator(tableView, indexPath)
+
+            /// Set disclosure indicator color
+            if let coviCell = cell as? CoViTableViewCell,
+                let disclosureIndicatorColor = coviCell.disclosureIndicatorColor {
+                if cell.accessoryType == .disclosureIndicator || cell.accessoryType == .detailDisclosureButton {
+                    if let imageView = cell.subviews.last?.subviews.first as? UIImageView {
+                        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+                        imageView.tintColor = disclosureIndicatorColor
+                    }
+                }
+            }
+        } else {
+            cell = UITableViewCell()
+        }
+
+        return cell
+    }
+
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if let canEditRowAt = tableViewDataSource?.canEditRowAt {
+            return canEditRowAt(tableView.tag, indexPath)
+        }
+        return false
+    }
+
+    public func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if let canMoveRowAt = tableViewDataSource?.canMoveRowAt {
+            return canMoveRowAt(tableView.tag, indexPath)
+        }
+        return false
+    }
+
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if let commit = tableViewDataSource?.commit {
+            let cellEditingStyle: CellEditingStyle
+            switch editingStyle {
+            case .delete:
+                cellEditingStyle = .delete
+            case .insert:
+                cellEditingStyle = .insert
+            default:
+                cellEditingStyle = .none
+            }
+
+            commit(tableView.tag, cellEditingStyle, indexPath)
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if let moveRowAt = tableViewDataSource?.moveRowAt {
+            moveRowAt(tableView.tag, sourceIndexPath, destinationIndexPath)
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let titleForHeaderInSection = tableViewDataSource?.titleForHeaderInSection {
+            return titleForHeaderInSection(tableView.tag, section)
+        }
+        return nil
+    }
+
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if let titleForFooterInSection = tableViewDataSource?.titleForFooterInSection {
+            return titleForFooterInSection(tableView.tag, section)
+        }
+        return nil
+    }
+
+    public func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        if let sectionForSectionIndexTitle = tableViewDataSource?.sectionForSectionIndexTitle {
+            return sectionForSectionIndexTitle(tableView.tag, title, index)
+        }
+        return 0
+    }
+
+    // MARK: - UITableViewDelegate
+
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let heightForRowAt = tableViewDelegate?.heightForRowAt {
+            return heightForRowAt(tableView.tag, indexPath)
+        }
+        return UITableView.automaticDimension
+    }
+
+    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let estimatedHeightForRowAt = tableViewDelegate?.estimatedHeightForRowAt {
+            return estimatedHeightForRowAt(tableView.tag, indexPath)
+        }
+        return UITableView.automaticDimension
+    }
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let didSelectRowAt = tableViewDelegate?.didSelectRowAt {
+            didSelectRowAt(tableView.tag, indexPath)
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let willDisplay = tableViewDelegate?.willDisplay {
+            willDisplay(tableView.tag, indexPath)
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if let shouldHighlightRowAt = tableViewDelegate?.shouldHighlightRowAt {
+            return shouldHighlightRowAt(tableView.tag, indexPath)
+        }
+        return true
+    }
+
+    public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        if let didHighlightRowAt = tableViewDelegate?.didHighlightRowAt {
+            didHighlightRowAt(tableView.tag, indexPath)
+        }
+
+        /// Set highlight color
+        if let coviCell = tableView.cellForRow(at: indexPath) as? CoViTableViewCell,
+            let highlightColor = coviCell.highlightColor {
+            let selectedBackgroundView = UIView()
+            selectedBackgroundView.backgroundColor = highlightColor
+
+            if coviCell.selectedBackgroundView != nil {
+                coviCell.selectedBackgroundView?.addSubview(childView: selectedBackgroundView,
+                                                        constraintType: .container)
+            } else {
+                coviCell.insertSubview(childView: selectedBackgroundView,
+                                   at: 0,
+                                   constraintType: .container)
+            }
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        if let didUnhighlightRowAt = tableViewDelegate?.didUnhighlightRowAt {
+            didUnhighlightRowAt(tableView.tag, indexPath)
+        }
+
+        /// Remove highlight color
+        if let coviCell = tableView.cellForRow(at: indexPath) as? CoViTableViewCell,
+            let _ = coviCell.highlightColor {
+            if coviCell.selectedBackgroundView != nil {
+                coviCell.selectedBackgroundView = nil
+            } else {
+                coviCell.subviews.first?.removeFromSuperview()
+            }
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {}
+
+    public func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {}
+
+    public func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {}
+
+    public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {}
+
+    public func tableView(_ tableView: UITableView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {}
+
+    public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {}
+
+    public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {}
+
+    public func tableView(_ tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {}
+
+    public func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {}
+
+    public func tableViewDidEndMultipleSelectionInteraction(_ tableView: UITableView) {}
+
+}
