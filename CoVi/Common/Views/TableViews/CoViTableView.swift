@@ -21,9 +21,14 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
 
     // MARK: - Properties
 
+    /// Preserve the row selection with `reloadData` function is called
+    public var preserveRowsSelected = false
+
     private var tableViewDataSource: CoViTableViewDataSource?
     private var tableViewDelegate: CoViTableViewDelegate?
     private var cellForRowAtConfigurator: CellConfigurator?
+
+    private var indexPathsSelected: [IndexPath] = []
 
     // MARK: - Functions
 
@@ -39,7 +44,14 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
 
     public func reloadData(cellForRowAtConfigurator: @escaping CellConfigurator) {
         self.cellForRowAtConfigurator = cellForRowAtConfigurator
+
+        if preserveRowsSelected, let indexPathsForSelectedRows = indexPathsForSelectedRows {
+            indexPathsSelected = indexPathsForSelectedRows
+        }
+
         self.reloadData()
+
+        indexPathsSelected.forEach { selectRow(at: $0, animated: false, scrollPosition: .none) }
     }
 
     // MARK: - UITableViewDataSource
