@@ -60,6 +60,13 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
         return tableViewDataSource?.numberOfRowsInSection(tableView.tag, section) ?? 0
     }
 
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        if let numberOfSections = tableViewDataSource?.numberOfSections {
+            return numberOfSections(tableView.tag)
+        }
+        return 1
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         if let cellForRowAtConfigurator = cellForRowAtConfigurator {
@@ -132,13 +139,6 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
         return nil
     }
 
-    public func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        if let sectionForSectionIndexTitle = tableViewDataSource?.sectionForSectionIndexTitle {
-            return sectionForSectionIndexTitle(tableView.tag, title, index)
-        }
-        return 0
-    }
-
     // MARK: - UITableViewDelegate
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -158,6 +158,12 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let didSelectRowAt = tableViewDelegate?.didSelectRowAt {
             didSelectRowAt(tableView.tag, indexPath)
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let didDeselectRowAt = tableViewDelegate?.didDeselectRowAt {
+            didDeselectRowAt(tableView.tag, indexPath)
         }
     }
 
@@ -211,25 +217,5 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
             }
         }
     }
-
-    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {}
-
-    public func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {}
-
-    public func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {}
-
-    public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {}
-
-    public func tableView(_ tableView: UITableView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {}
-
-    public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {}
-
-    public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {}
-
-    public func tableView(_ tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {}
-
-    public func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {}
-
-    public func tableViewDidEndMultipleSelectionInteraction(_ tableView: UITableView) {}
 
 }

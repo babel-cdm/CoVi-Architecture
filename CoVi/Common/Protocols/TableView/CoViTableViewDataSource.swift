@@ -10,6 +10,7 @@ import UIKit
 
 @objc public protocol CoViTableViewDataSource: class {
     func numberOfRowsInSection(_ tableViewTag: Int, _ section: Int) -> Int
+    @objc optional func numberOfSections(_ tableViewTag: Int) -> Int
     @objc optional func canEditRowAt(_ tableViewTag: Int, _ indexPath: IndexPath) -> Bool
     @objc optional func canMoveRowAt(_ tableViewTag: Int, _ indexPath: IndexPath) -> Bool
     @objc optional func commit(_ tableViewTag: Int, editingStyle: CoViTableView.CellEditingStyle, forRowAt indexPath: IndexPath)
