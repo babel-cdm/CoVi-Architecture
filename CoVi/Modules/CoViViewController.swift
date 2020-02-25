@@ -16,6 +16,17 @@ private protocol CoViViewDependencies: class {
     func getPresenter() -> Presenter?
 }
 
+/**
+ CoVi base viewController.
+ This ViewController extends of BindableType, UIGestureRecognizerDelegate and UIAdaptivePresentationControllerDelegate.
+
+ - BindableType is required to facilitate the presenter's bind at the view.
+ - UIGestureRecognizerDelegate is used to recognize the user's 'pop' gesture.
+ - UIAdaptivePresentationControllerDelegate is used to recognize the user's 'dismiss' gesture.
+
+ # Generic Parameters
+ - Presenter: Presenter protocol parameter.
+ */
 open class CoViViewController<Presenter>: UIViewController,
                                             CoViViewDependencies,
                                             BindableType,
@@ -26,6 +37,9 @@ open class CoViViewController<Presenter>: UIViewController,
 
     public var presenter: CoViPresenterProtocol!
 
+    /**
+     Obtain the presenter protocol casted to 'Presenter' type.
+     */
     public func getPresenter() -> Presenter? {
         return presenter as? Presenter
     }
@@ -44,7 +58,7 @@ open class CoViViewController<Presenter>: UIViewController,
 
     // MARK: - Lifecycle
 
-    open override func viewDidLayoutSubviews() {
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         if hasBaseVerticalScrollView {
@@ -89,6 +103,9 @@ open class CoViViewController<Presenter>: UIViewController,
 
     // MARK: - BindableType
 
+    /**
+     Override this function to setup the UI.
+     */
     open func setupUI() {}
 
     // MARK: - Native Alert
@@ -413,10 +430,12 @@ open class CoViViewController<Presenter>: UIViewController,
 
     // MARK: - UIGestureRecognizerDelegate functions
 
+    /// Delegate's event to decide if the viewController has 'pop' gesture.
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return getNavBarViewControllerCount() > 1
     }
 
+    /// Event associated with 'pop' gesture.
     @objc open func handlePopGesture(gesture: UIGestureRecognizer) {
         if gesture.state == .began {
             presenter.handlePopBeganGesture()
@@ -425,8 +444,9 @@ open class CoViViewController<Presenter>: UIViewController,
         }
     }
 
-    // MARK: - UIGestureRecognizerDelegate functions
+    // MARK: - UIAdaptivePresentationControllerDelegate functions
 
+    /// Delegate's event associated with 'dismiss' gesture.
     open func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         presenter.handleDismissEndedGesture()
     }

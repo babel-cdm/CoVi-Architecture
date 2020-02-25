@@ -18,7 +18,7 @@ open class CoViTableViewCell: UITableViewCell {
 
     // MARK: - Lifecycle
 
-    open override func setSelected(_ selected: Bool, animated: Bool) {
+    override open func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if let selectedBackgroundColor = selectedBackgroundColor {
             if selected {
