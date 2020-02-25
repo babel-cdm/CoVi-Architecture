@@ -11,6 +11,7 @@ import Foundation
 /**
  CoVi base interactor.
 
+ # Generic Parameters
  - Input: Input parameter. It there is no parameter, type Void.
  - Output: Output parameter. It there is no parameter, type Void.
  - Process: Process parameter. It there is no parameter, type Void. It is used for example if you want to know the process of an image upload.

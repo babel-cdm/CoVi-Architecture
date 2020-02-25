@@ -29,10 +29,21 @@ private protocol CoViPresenterDependencies: class {
     func getRouter() -> Router?
 }
 
+/**
+ CoVi base presenter.
+
+ # Generic Parameters
+ - View: View protocol parameter.
+ - Router: Router protocol parameter.
+ */
 open class CoViPresenter<View, Router>: CoViPresenterDependencies {
 
     // MARK: - Properties
 
+    /**
+     DisposeBag to use in the interactors.
+     It is required for the interactor to know when the Presenter disinstates.
+     */
     public var coviDisposeBag: CoViDisposeBag
 
     // MARK: - VIPER Dependencies
@@ -40,22 +51,34 @@ open class CoViPresenter<View, Router>: CoViPresenterDependencies {
     weak var view: CoViViewProtocol?
     let router: CoViWireframeProtocol
 
+    /**
+     Obtain the view protocol casted to 'View' type.
+     */
     public func getView() -> View? {
         return view as? View
     }
 
+    /**
+     Obtain the router protocol casted to 'Router' type.
+     */
     public func getRouter() -> Router? {
         return router as? Router
     }
 
     // MARK: - Initializer
 
+    /**
+     Initializer of DisposeBag, 'View' and 'Router'
+     */
     public init(view: CoViViewProtocol, router: CoViWireframeProtocol) {
         self.coviDisposeBag = CoViDisposeBag()
         self.view = view
         self.router = router
     }
 
+    /**
+     Deinit method that sends a notification to Interactor, warning that the Presenter is going to disinstantiate.
+     */
     deinit {
         NotificationCenter.default.post(name: disposeBagNotificationId,
                                         object: nil,
@@ -64,28 +87,61 @@ open class CoViPresenter<View, Router>: CoViPresenterDependencies {
 
     // MARK: - CoViPresenterProtocol
 
+    /**
+     Called when `viewDidLoad()` function of ViewController is called.
+     */
     open func didLoad() {}
 
+    /**
+     Called when `viewWillAppear(_:)` function of ViewController is called.
+     */
     open func willAppear() {}
 
+    /**
+     Called when `viewDidAppear(_:)` function of ViewController is called.
+     */
     open func didAppear() {}
 
+    /**
+     Called when `viewWillDisappear(_:)` function of ViewController is called.
+     */
     open func willDisappear() {}
 
+    /**
+     Called when `viewDidDisappear(_:)` function of ViewController is called.
+     */
     open func didDisappear() {}
 
+    /**
+     Called when the left button of NavigationController is clicked.
+     By default, this function go back in the Router.
+     */
     open func onNavBarLeftButtonClicked() {
         router.pop(animated: true)
     }
 
+    /**
+     Called when the right buttons of NavigationController are clicked.
+
+     - Parameter tag: This parameter is used to differentiate which button has been pressed.
+     */
     open func onNavBarRightButtonClicked(_ tag: Int) {}
 
+    /**
+     Called when the user begins the "pop" closing gesture.
+     */
     open func handlePopBeganGesture() {}
 
+    /**
+     Called when the user finishes the "pop" closing gesture.
+     */
     open func handlePopEndedGesture() {
         router.popGesture()
     }
 
+    /**
+     Called when the user finishes the "dismiss" closing gesture.
+     */
     open func handleDismissEndedGesture() {
         router.dismissGesture()
     }
