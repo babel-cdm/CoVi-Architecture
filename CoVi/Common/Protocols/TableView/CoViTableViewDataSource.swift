@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ CoVi base table view data source.
+ */
 @objc public protocol CoViTableViewDataSource: class {
     func numberOfRowsInSection(_ tableViewTag: Int, _ section: Int) -> Int
     @objc optional func numberOfSections(_ tableViewTag: Int) -> Int

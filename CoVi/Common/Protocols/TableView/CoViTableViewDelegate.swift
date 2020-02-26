@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ CoVi base table view delegate.
+ */
 @objc public protocol CoViTableViewDelegate: class {
     @objc optional func heightForRowAt(_ tableViewTag: Int, _ indexPath: IndexPath) -> CGFloat
     @objc optional func estimatedHeightForRowAt(_ tableViewTag: Int, _ indexPath: IndexPath) -> CGFloat
