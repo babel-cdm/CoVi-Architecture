@@ -10,6 +10,13 @@ import UIKit
 
 public struct CoViViewUtils {
 
+    /**
+     Get an array of constraints, matching all sides of the child view, with the parent view.
+
+     - Parameters:
+        - item: Child view you want to add on the view.
+        - toItem: Parent view where you want the view to be added.
+     */
     public static func getContainerConstraints(item: NSObject, toItem: NSObject) -> [NSLayoutConstraint] {
         let topConstraint = NSLayoutConstraint(item: item, attribute: .top, relatedBy: .equal,
                                                toItem: toItem, attribute: .top,
@@ -27,6 +34,13 @@ public struct CoViViewUtils {
         return [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint]
     }
 
+    /**
+     Get an array of constraints, centering the view in other view (center x and y).
+
+     - Parameters:
+        - item: Child view you want to center on the view.
+        - toItem: Parent view where you want the view to be centered.
+     */
     public static func getCenterConstraints(item: NSObject, toItem: NSObject) -> [NSLayoutConstraint] {
         let centerHorConstraint = NSLayoutConstraint(item: item, attribute: .centerX, relatedBy: .equal,
                                                      toItem: toItem, attribute: .centerX,

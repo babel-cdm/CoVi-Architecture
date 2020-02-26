@@ -8,12 +8,18 @@
 
 import UIKit
 
+/**
+ CoVi base table view cell.
+ */
 open class CoViTableViewCell: UITableViewCell {
 
     // MARK: - Properties
 
+    /// Background color when the user keeps his finger on the cell.
     public var highlightColor: UIColor?
+    /// Background color when the user selects a row.
     public var selectedBackgroundColor: UIColor?
+    /// Tint color of disclosure indicator.
     public var disclosureIndicatorColor: UIColor?
 
     // MARK: - Lifecycle

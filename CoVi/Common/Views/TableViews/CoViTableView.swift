@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ CoVi base table view.
+ */
 open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
 
     public typealias CellConfigurator = (UITableView, IndexPath) -> UITableViewCell
@@ -21,7 +24,7 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
 
     // MARK: - Properties
 
-    /// Preserve the row selection with `reloadData` function is called
+    /// Preserve the row selection with `reloadData()` function is called
     public var preserveRowsSelected = false
 
     private var tableViewDataSource: CoViTableViewDataSource?
@@ -32,16 +35,35 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
 
     // MARK: - Functions
 
+    /**
+     Function to set the data source of table view.
+
+     The data source must adopt the CoViTableViewDataSource protocol. The data source is not retained.
+
+     - Parameter dataSource: The object that acts as the data source of the table view.
+     */
     public func setupDataSource(_ dataSource: CoViTableViewDataSource?) {
         self.dataSource = self
         self.tableViewDataSource = dataSource
     }
 
+    /**
+     Function to set the delegate of table view.
+
+     The delegate must adopt the CoViTableViewDataSource protocol. The delegate is not retained.
+
+     - Parameter delegate: The object that acts as the delegate of the table view.
+     */
     public func setupDelegate(_ delegate: CoViTableViewDelegate?) {
         self.delegate = self
         self.tableViewDelegate = delegate
     }
 
+    /**
+     Reload data of table view.
+
+     - Parameter cellForRowAtConfigurator: Completion handler to bind the 'cellForRowAt' event of data source.
+     */
     public func reloadData(cellForRowAtConfigurator: @escaping CellConfigurator) {
         self.cellForRowAtConfigurator = cellForRowAtConfigurator
 
