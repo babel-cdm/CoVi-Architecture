@@ -6,7 +6,7 @@
 //  Copyright © 2019 Babel SI. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for CoVi.
 FOUNDATION_EXPORT double CoViVersionNumber;
@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double CoViVersionNumber;
 FOUNDATION_EXPORT const unsigned char CoViVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CoVi/PublicHeader.h>
-
-

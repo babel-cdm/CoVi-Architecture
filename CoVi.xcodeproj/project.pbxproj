@@ -16,6 +16,11 @@
 		9F41B75B2320E94B006A5857 /* CoViWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F41B75A2320E94B006A5857 /* CoViWireframe.swift */; };
 		9F41B75E2320EA10006A5857 /* CoViApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F41B75D2320EA10006A5857 /* CoViApplication.swift */; };
 		9F70D5772342798B00353B8E /* CoViDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F70D5762342798B00353B8E /* CoViDisposeBag.swift */; };
+		9F761F3C23F456BF0030D9B2 /* CoViTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F761F3A23F456BF0030D9B2 /* CoViTableViewDataSource.swift */; };
+		9F761F3D23F456BF0030D9B2 /* CoViTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F761F3B23F456BF0030D9B2 /* CoViTableViewDelegate.swift */; };
+		9F761F4123F4583D0030D9B2 /* CoViTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F761F4023F4583D0030D9B2 /* CoViTableView.swift */; };
+		9F761F4323F458650030D9B2 /* CoViTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F761F4223F458650030D9B2 /* CoViTableViewCell.swift */; };
+		9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */; };
 		9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +36,11 @@
 		9F41B75A2320E94B006A5857 /* CoViWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViWireframe.swift; sourceTree = "<group>"; };
 		9F41B75D2320EA10006A5857 /* CoViApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViApplication.swift; sourceTree = "<group>"; };
 		9F70D5762342798B00353B8E /* CoViDisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViDisposeBag.swift; sourceTree = "<group>"; };
+		9F761F3A23F456BF0030D9B2 /* CoViTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViTableViewDataSource.swift; sourceTree = "<group>"; };
+		9F761F3B23F456BF0030D9B2 /* CoViTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViTableViewDelegate.swift; sourceTree = "<group>"; };
+		9F761F4023F4583D0030D9B2 /* CoViTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViTableView.swift; sourceTree = "<group>"; };
+		9F761F4223F458650030D9B2 /* CoViTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViTableViewCell.swift; sourceTree = "<group>"; };
+		9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViViewUtils.swift; sourceTree = "<group>"; };
 		9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +91,9 @@
 				9F70D5752342796A00353B8E /* Disposable */,
 				9F41B74C2320E848006A5857 /* Constants */,
 				9F41B74D2320E84F006A5857 /* Extensions */,
+				9FBDA98B23ED9A01005039AC /* Utils */,
+				9F761F3723F456830030D9B2 /* Protocols */,
+				9F761F3823F4569C0030D9B2 /* Views */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -135,6 +148,56 @@
 			path = Disposable;
 			sourceTree = "<group>";
 		};
+		9F761F3723F456830030D9B2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9F761F3923F456AC0030D9B2 /* TableView */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		9F761F3823F4569C0030D9B2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9F761F3E23F457A10030D9B2 /* Cells */,
+				9F761F3F23F457A50030D9B2 /* TableViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9F761F3923F456AC0030D9B2 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				9F761F3A23F456BF0030D9B2 /* CoViTableViewDataSource.swift */,
+				9F761F3B23F456BF0030D9B2 /* CoViTableViewDelegate.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		9F761F3E23F457A10030D9B2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9F761F4223F458650030D9B2 /* CoViTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9F761F3F23F457A50030D9B2 /* TableViews */ = {
+			isa = PBXGroup;
+			children = (
+				9F761F4023F4583D0030D9B2 /* CoViTableView.swift */,
+			);
+			path = TableViews;
+			sourceTree = "<group>";
+		};
+		9FBDA98B23ED9A01005039AC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		9FE5CD222326AAE0009B03FD /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,8 +244,8 @@
 		9F41B7372320E7C8006A5857 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1030;
-				ORGANIZATIONNAME = "Mr. Squirrel";
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Babel SI";
 				TargetAttributes = {
 					9F41B73F2320E7C8006A5857 = {
 						CreatedOnToolsVersion = 10.3;
@@ -223,10 +286,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F41B7582320E942006A5857 /* BindableType.swift in Sources */,
+				9F761F3C23F456BF0030D9B2 /* CoViTableViewDataSource.swift in Sources */,
 				9F41B75E2320EA10006A5857 /* CoViApplication.swift in Sources */,
 				9F41B7552320E93A006A5857 /* CoViViewConstants.swift in Sources */,
+				9F761F3D23F456BF0030D9B2 /* CoViTableViewDelegate.swift in Sources */,
+				9F761F4323F458650030D9B2 /* CoViTableViewCell.swift in Sources */,
 				9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */,
 				9F41B7522320E92A006A5857 /* CoViViewController.swift in Sources */,
+				9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */,
+				9F761F4123F4583D0030D9B2 /* CoViTableView.swift in Sources */,
 				9F41B75B2320E94B006A5857 /* CoViWireframe.swift in Sources */,
 				9F41B7592320E942006A5857 /* CoViViewExtensions.swift in Sources */,
 				9F41B7532320E92A006A5857 /* CoViPresenter.swift in Sources */,
@@ -269,7 +337,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -333,7 +400,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -362,9 +428,6 @@
 		9F41B7492320E7C8006A5857 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -379,7 +442,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -388,9 +451,6 @@
 		9F41B74A2320E7C8006A5857 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -405,6 +465,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

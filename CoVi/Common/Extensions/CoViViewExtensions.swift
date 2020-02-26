@@ -10,14 +10,24 @@ import UIKit
 
 extension UIView {
 
+    /// Get the file name of the View.
     public static var identifier: String {
         return String(describing: self)
     }
 
+    /// Get the Nib instance from the file name.
     public static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
 
+    /**
+     Add a shadow to the view.
+
+     - Parameters:
+        - shadowColor: Color of the shadow. By default is 'black'.
+        - shadowRadius: Radius of the shadow. By default is 5.
+        - shadowOpacity: Transparency of the shadow. By default is 0.2.
+     */
     public func setShadow(shadowColor: UIColor = UIColor.black,
                           shadowRadius: CGFloat = 5,
                           shadowOpacity: Float = 0.2) {
@@ -27,6 +37,16 @@ extension UIView {
         layer.shadowOffset = CGSize(width: 0, height: 0)
     }
 
+    /**
+     Add a shadow to the view.
+
+     - Parameters:
+        - side: Side where you want the shadow to stick out.
+        - shadowOffset: Offset you want the shadow to stick out. By default is 3.
+        - shadowColor: Color of the shadow. By default is 'black'.
+        - shadowRadius: Radius of the shadow. By default is 5.
+        - shadowOpacity: Transparency of the shadow. By default is 0.2.
+     */
     public func setShadow(side: CoViViewConstants.Sides,
                           shadowOffset: CGFloat = 3,
                           shadowColor: UIColor = UIColor.black,
@@ -46,11 +66,17 @@ extension UIView {
         }
     }
 
+    /**
+     Add curved corners to the view.
+
+     - Parameters:
+        - corners: Sides where you want to add a curved corner. By default are all corners.
+        - bounds: CGRect of the shadow. Only is used if the corners parameter is set. By default is 'self.bounds'.
+        - radius: Corner radius. If corners parameter is set, by default is 13; if it is not set, by default is 'layer.frame.height / 2'.
+     */
     public func setCorners(corners: UIRectCorner? = nil,
                            bounds: CGRect? = nil,
-                           radius: CGFloat? = nil,
-                           borderColor: UIColor? = nil,
-                           borderWidth: CGFloat = 1.0) {
+                           radius: CGFloat? = nil) {
         if let corners = corners {
             let path: UIBezierPath!
             var width = 13
@@ -78,52 +104,118 @@ extension UIView {
             if let radius = radius {
                 layer.cornerRadius = radius
             } else {
-                layer.cornerRadius = layer.frame.width / 2
+                layer.cornerRadius = layer.frame.height / 2
             }
         }
+    }
 
-        if let borderColor = borderColor {
-            layer.borderColor = borderColor.cgColor
-            layer.borderWidth = borderWidth
+    /**
+     Add a border color and width to the view.
+
+     - Parameters:
+        - borderColor: Border color.
+        - borderWidth: Border width. By default is 1.
+     */
+    public func setBorder(borderColor: UIColor, borderWidth: CGFloat = 1.0) {
+        layer.borderColor = borderColor.cgColor
+        layer.borderWidth = borderWidth
+    }
+
+    public enum ConstraintType {
+        case container
+        case center
+    }
+
+    /**
+     Add a subview in other view.
+
+     - Parameters:
+        - childView: The view you want to add in another view.
+        - constraintType: Enumerated that decides how to add the view.
+     */
+    public func addSubview(childView: UIView, constraintType: ConstraintType) {
+        addSubview(childView)
+        addConstraints(childView: childView, constraintType: constraintType)
+    }
+
+    /**
+     Insert a subview above another view.
+
+     - Parameters:
+        - childView: The view you want to add in another view.
+        - aboveSubview: View that will be below the 'childView'.
+        - constraintType: Enumerated that decides how to add the view.
+     */
+    public func insertSubview(childView: UIView, aboveSubview: UIView, constraintType: ConstraintType) {
+        insertSubview(childView, aboveSubview: aboveSubview)
+        addConstraints(childView: childView, constraintType: constraintType)
+    }
+
+    /**
+     Insert a subview below another view.
+
+     - Parameters:
+        - childView: The view you want to add in another view.
+        - belowSubview: View that will be above the 'childView'.
+        - constraintType: Enumerated that decides how to add the view.
+     */
+    public func insertSubview(childView: UIView, belowSubview: UIView, constraintType: ConstraintType) {
+        insertSubview(childView, belowSubview: belowSubview)
+        addConstraints(childView: childView, constraintType: constraintType)
+    }
+
+    /**
+     Insert a subview within another view, in a particular position.
+
+     - Parameters:
+        - childView: The view you want to add in another view.
+        - position: Position where you want to insert the new view.
+        - constraintType: Enumerated that decides how to add the view.
+     */
+    public func insertSubview(childView: UIView, at position: Int, constraintType: ConstraintType) {
+        insertSubview(childView, at: position)
+        addConstraints(childView: childView, constraintType: constraintType)
+    }
+
+    private func addConstraints(childView: UIView, constraintType: ConstraintType) {
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        switch constraintType {
+        case .container:
+            addContainerConstraints(childView: childView)
+        case .center:
+            addCenterConstraints(childView: childView)
         }
     }
 
-    public func addSubview(childView: UIView) {
-        addSubview(childView)
-        addContainerConstraints(childView: childView)
+    /**
+     Add contraints to match the parent's measurements.
+
+     - Parameter childView: The view to which you want to add the constraints.
+     */
+    public func addContainerConstraints(childView: UIView) {
+        let constraints = CoViViewUtils.getContainerConstraints(item: childView, toItem: self)
+        addConstraints(constraints)
     }
 
-    public func insertSubview(childView: UIView, belowSubview: UIView) {
-        insertSubview(childView, belowSubview: belowSubview)
-        addContainerConstraints(childView: childView)
-    }
+    /**
+     Add constraints to center on the parent.
 
-    private func addContainerConstraints(childView: UIView) {
-        // Adding Constraints to the superview
-        childView.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = NSLayoutConstraint(item: childView, attribute: .top, relatedBy: .equal,
-                                               toItem: self, attribute: .top,
-                                               multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: childView, attribute: .bottom, relatedBy: .equal,
-                                                  toItem: self, attribute: .bottom,
-                                                  multiplier: 1, constant: 0)
-        let leadingConstraint = NSLayoutConstraint(item: childView, attribute: .leading, relatedBy: .equal,
-                                                   toItem: self, attribute: .leading,
-                                                   multiplier: 1, constant: 0)
-        let trailingConstraint = NSLayoutConstraint(item: childView, attribute: .trailing, relatedBy: .equal,
-                                                    toItem: self, attribute: .trailing,
-                                                    multiplier: 1, constant: 0)
-
-        addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-        layoutIfNeeded()
+     - Parameter childView: The view to which you want to add the constraints.
+     */
+    public func addCenterConstraints(childView: UIView) {
+        let constraints = CoViViewUtils.getCenterConstraints(item: childView, toItem: self)
+        addConstraints(constraints)
     }
 
 }
 
 extension UIScrollView {
 
-    /// Decreases the content size of ScrollView so that when you exit the keyboard, do not hide any field of view.
+    /**
+     Decreases the content size of ScrollView so that when you exit the keyboard, do not hide any field of view.
 
+     - Parameter notification: Notification that the size of the keyboard has changed.
+     */
     public func setScrollSizeOnKeyboard(notification: NSNotification) {
         guard let info = notification.userInfo,
             let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size else {
@@ -137,7 +229,6 @@ extension UIScrollView {
     }
 
     /// Resets the content size of ScrollView when the keyboard is hidden.
-
     public func resetScrollSizeOnKeyboard() {
         let contentInsets = UIEdgeInsets.zero
         self.contentInset = contentInsets
@@ -147,32 +238,63 @@ extension UIScrollView {
 
 extension UIViewController {
 
-    /// Get the name of the View Controller.
+    /// Boolean that decides whether to add a scrollView in the view, so that the whole view is scrollable.
+    @objc open var hasBaseVerticalScrollView: Bool {
+        return false
+    }
 
+    /// Get the file name of the View Controller.
     public static var identifier: String {
         return String(describing: self)
     }
 
     /// Add gesture to hide keyboard when user taps outside keyboard.
-
     public func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 
-    /// Hide keyboard.
+    /// Check if `hasBaseVerticalScrollView` is enabled, to add the ScrollView as main view of the ViewController.
+    public func checkBaseVerticalScrollView() {
+        if hasBaseVerticalScrollView {
+            let scrollView = UIScrollView()
+            let contentView: UIView = view
+            scrollView.addSubview(contentView)
 
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            var scrollViewConstraints = CoViViewUtils.getContainerConstraints(item: contentView,
+                                                                              toItem: scrollView.contentLayoutGuide)
+            let widthConstraint = NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal,
+                                                     toItem: scrollView.frameLayoutGuide, attribute: .width,
+                                                     multiplier: 1, constant: 0)
+            scrollViewConstraints.append(widthConstraint)
+
+            scrollView.addConstraints(scrollViewConstraints)
+
+            view = scrollView
+        }
+    }
+
+    /// Hide keyboard.
     @objc open func dismissKeyboard() {
         view.endEditing(true)
     }
 
+    /**
+     Add a ViewController inside a view container. This function adds contraints too.
+
+     - Parameters:
+        - childViewController: ViewController that you want to add to the container.
+        - viewContainer: Container view.
+     */
     public func add(childViewController: UIViewController, viewContainer: UIView) {
         addChild(childViewController)
-        viewContainer.addSubview(childView: childViewController.view)
+        viewContainer.addSubview(childView: childViewController.view, constraintType: .container)
         childViewController.didMove(toParent: self)
     }
 
+    /// Remove a ViewController from its container.
     public func remove() {
         guard parent != nil else {
             return
@@ -192,7 +314,7 @@ extension UINavigationController {
      If the image of the back button is changed, it will be changed for the entire application.
      If you want to change only on one screen, it's recommended to use the *setNavBarButtons(backImage: "")* function.
 
-     - parameter image: Image to display in the back button.
+     - Parameter image: Image to display in the back button.
      */
     public func setNavBarBackButtonImageApp(image: UIImage?) {
         if let backButtonImage = image {
@@ -202,6 +324,11 @@ extension UINavigationController {
         }
     }
 
+    /**
+     Push the NavigationController as 'Root' in the `Window`.
+
+     - Parameter animated: Boolean who decides whether to animate the transition with the effect *.transitionCrossDissolve*.
+     */
     func pushRootViewController(animated: Bool) {
         guard let window = UIApplication.shared.keyWindow else {
             return
@@ -218,6 +345,12 @@ extension UINavigationController {
         }
     }
 
+    /**
+     Push a ViewController as 'modal' transition.
+
+     - Parameter view: New ViewController to push.
+     - Parameter animated: Boolean who decides whether to animate the transition with 'modal' efect.
+     */
     func pushModalViewController(_ view: UIViewController, animated: Bool) {
         var isAnimated = animated
         if animated {
@@ -234,6 +367,12 @@ extension UINavigationController {
         pushViewController(view, animated: isAnimated)
     }
 
+    /**
+     Pop the ViewController as 'modal' transition.
+
+     - Parameter toRootVc: If true, return to the Root View Controller. By default is false.
+     - Parameter animated: Boolean who decides whether to animate the transition with 'modal' efect.
+     */
     func popModalViewController(toRootVc: Bool = false, animated: Bool) {
         var isAnimated = animated
         if animated {

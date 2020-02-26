@@ -18,18 +18,22 @@ enum RouteTransitionType {
 public protocol CoViWireframeProtocol: class {
     func popToRoot(animated: Bool)
     func pop(animated: Bool)
-    func popModal(animated: Bool)
     func popModalToRoot(animated: Bool)
-    func dismissModal(animated: Bool)
+    func popModal(animated: Bool)
+    func dismissModal(animated: Bool, completion: (() -> Void)?)
     func popGesture()
     func dismissGesture()
 }
 
+/**
+ CoVi base wireframe.
+ */
 open class CoViWireframe {
 
     // MARK: - Properties
 
-    var routerStack: [[UIViewController: RouteTransitionType]] = []
+    /// Stack of views that exist in the application.
+    internal static var routerStack: [[UIViewController: RouteTransitionType]] = []
 
     // MARK: - Initializer
 
@@ -40,7 +44,7 @@ open class CoViWireframe {
     private func getLastNavigationController() -> UINavigationController? {
         var navigationController: UINavigationController?
 
-        for router in routerStack.reversed() {
+        for router in CoViWireframe.routerStack.reversed() {
             if let navController = router.keys.first as? UINavigationController {
                 navigationController = navController
                 break
@@ -53,7 +57,7 @@ open class CoViWireframe {
     private func getLastViewController(with routeTransitionType: RouteTransitionType? = nil) -> UIViewController? {
         var viewController: UIViewController?
 
-        for router in routerStack.reversed() {
+        for router in CoViWireframe.routerStack.reversed() {
             if let vController = router.keys.first, let transitionType = router.values.first {
                 if let routeTransitionType = routeTransitionType {
                     if routeTransitionType == transitionType {
@@ -73,7 +77,7 @@ open class CoViWireframe {
     private func getTotalViewsFromLastNavController() -> Int {
         var totaViewControllers = 0
 
-        for router in routerStack.reversed() {
+        for router in CoViWireframe.routerStack.reversed() {
             if let transitionType = router.values.first {
                 if transitionType != .root {
                     totaViewControllers += 1
@@ -89,7 +93,7 @@ open class CoViWireframe {
     private func isViewInStack(_ view: UIViewController) -> Bool {
         var isInStack = false
 
-        for router in routerStack {
+        for router in CoViWireframe.routerStack {
             if router.keys.first == view {
                 isInStack = true
                 break
@@ -101,14 +105,14 @@ open class CoViWireframe {
 
     private func addViewToStack(_ view: UIViewController, _ routeTransitionType: RouteTransitionType) {
         if !isViewInStack(view) {
-            routerStack.append([view: routeTransitionType])
+            CoViWireframe.routerStack.append([view: routeTransitionType])
         }
     }
 
     private func removeViewsToStackFromPushRoot(_ view: UIViewController) {
-        for routerEnumerated in routerStack.enumerated() {
+        for routerEnumerated in CoViWireframe.routerStack.enumerated() {
             if view == routerEnumerated.element.keys.first {
-                let lastIndex = routerStack.count - 1
+                let lastIndex = CoViWireframe.routerStack.count - 1
 
                 /** position "0" is root
                  position "1" is the root VC
@@ -117,7 +121,7 @@ open class CoViWireframe {
                 let nextVcRootIndex = routerEnumerated.offset + 2 // +2 for the reason explained above
 
                 if nextVcRootIndex <= lastIndex {
-                    routerStack.removeSubrange(nextVcRootIndex...lastIndex)
+                    CoViWireframe.routerStack.removeSubrange(nextVcRootIndex...lastIndex)
                 }
                 break
             }
@@ -125,12 +129,12 @@ open class CoViWireframe {
     }
 
     private func removeViewsToStackFromPresentModal(_ view: UIViewController) {
-        for routerEnumerated in routerStack.enumerated() {
+        for routerEnumerated in CoViWireframe.routerStack.enumerated() {
             if view == routerEnumerated.element.keys.first {
-                routerStack.removeSubrange(routerEnumerated.offset...routerStack.count - 1)
+                CoViWireframe.routerStack.removeSubrange(routerEnumerated.offset...CoViWireframe.routerStack.count - 1)
 
-                if routerStack.last?.values.first == .root {
-                    routerStack.removeLast()
+                if CoViWireframe.routerStack.last?.values.first == .root {
+                    CoViWireframe.routerStack.removeLast()
                 }
                 break
             }
@@ -139,20 +143,39 @@ open class CoViWireframe {
 
     // MARK: - Public functions
 
+    /**
+     Get the ViewController instance from a name.
+
+     - Parameter name: Storyboard's name.
+     */
     public func getViewFromStoryboard(name: String) -> UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
         return storyboard.instantiateViewController(withIdentifier: name)
     }
 
+    /**
+     Push a new ViewController as 'Root' in the Window.
+
+     - Parameters:
+        - view: New ViewController.
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
     public func pushRoot(view: UIViewController, animated: Bool = true) {
         let navigationController = CoViApplication.getNavigationController(rootVC: view)
         navigationController.pushRootViewController(animated: animated)
 
-        routerStack.removeAll()
+        CoViWireframe.routerStack.removeAll()
         addViewToStack(navigationController, .root)
         addViewToStack(view, .push)
     }
 
+    /**
+     Push a new ViewController in the stack.
+
+     - Parameters:
+        - view: New ViewController.
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
     public func push(view: UIViewController, animated: Bool = true) {
         let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
         navigationController.pushViewController(view, animated: animated)
@@ -161,6 +184,13 @@ open class CoViWireframe {
         addViewToStack(view, .push)
     }
 
+    /**
+     Push a new ViewController in the stack as 'modal' transition.
+
+     - Parameters:
+        - view: New ViewController.
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
     public func pushModal(view: UIViewController, animated: Bool = true) {
         let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
         navigationController.pushModalViewController(view, animated: animated)
@@ -169,6 +199,13 @@ open class CoViWireframe {
         addViewToStack(view, .pushModal)
     }
 
+    /**
+     Present a new ViewController as modal.
+
+     - Parameters:
+        - view: New ViewController.
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
     public func presentModal(view: UIViewController, animated: Bool = true) {
         let lastViewController = getLastViewController() ?? CoViApplication.getNavigationController()
         lastViewController.present(view, animated: animated, completion: nil)
@@ -189,6 +226,12 @@ open class CoViWireframe {
 
     // MARK: - CoViWireframeProtocol
 
+    /**
+     Pop from current ViewController to root ViewController.
+
+     - Parameters:
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
     public func popToRoot(animated: Bool = true) {
         let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
         navigationController.popToRootViewController(animated: animated)
@@ -196,6 +239,12 @@ open class CoViWireframe {
         removeViewsToStackFromPushRoot(navigationController)
     }
 
+    /**
+     Pop the current ViewController.
+
+     - Parameters:
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
     public func pop(animated: Bool = true) {
         let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
         navigationController.popViewController(animated: animated)
@@ -203,13 +252,12 @@ open class CoViWireframe {
         popGesture()
     }
 
-    public func popModal(animated: Bool = true) {
-        let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
-        navigationController.popModalViewController(animated: animated)
+    /**
+     Pop from current ViewController to root ViewController as 'modal' transition.
 
-        popGesture()
-    }
-
+     - Parameters:
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
     public func popModalToRoot(animated: Bool = true) {
         let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
         navigationController.popModalViewController(toRootVc: true, animated: animated)
@@ -217,19 +265,41 @@ open class CoViWireframe {
         removeViewsToStackFromPushRoot(navigationController)
     }
 
-    public func dismissModal(animated: Bool = true) {
+    /**
+     Pop the current ViewController as 'modal' transition.
+
+     - Parameters:
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
+    public func popModal(animated: Bool = true) {
+        let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
+        navigationController.popModalViewController(animated: animated)
+
+        popGesture()
+    }
+
+    /**
+     Dismiss the current ViewController as modal.
+
+     - Parameters:
+        - animated: Boolean that decides if the transition is animated. By default is true.
+        - completion: Completion handler to know when the dismiss has finished.
+     */
+    public func dismissModal(animated: Bool = true, completion: (() -> Void)? = nil) {
         let lastViewController = getLastViewController(with: .modal) ?? CoViApplication.getNavigationController()
-        lastViewController.dismiss(animated: animated, completion: nil)
+        lastViewController.dismiss(animated: animated, completion: completion)
 
         removeViewsToStackFromPresentModal(lastViewController)
     }
 
+    /// Pop the current ViewController when gesture has finished.
     public func popGesture() {
         if getTotalViewsFromLastNavController() > 1 {
-            routerStack.removeLast()
+            CoViWireframe.routerStack.removeLast()
         }
     }
 
+    /// Dismiss the current ViewController when gesture has finished.
     public func dismissGesture() {
         let lastViewController = getLastViewController(with: .modal) ?? CoViApplication.getNavigationController()
         removeViewsToStackFromPresentModal(lastViewController)
