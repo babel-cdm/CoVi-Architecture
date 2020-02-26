@@ -8,7 +8,7 @@ spec.summary = "CoVi lets users build awesome apps with professional architectur
 spec.requires_arc = true
 
 # 2
-spec.version = "0.1.0"
+spec.version = "1.0.0"
 
 # 3
 spec.license = { :type => "MIT", :file => "LICENSE" }
@@ -24,7 +24,7 @@ spec.source = { :git => "https://github.com/babel-cdm/CoVi-Architecture.git",
              :tag => "#{spec.version}" }
 
 # 7
-spec.framework = "UIKit"
+#spec.framework = "UIKit"
 
 # 8
 spec.source_files = "CoVi/**/*.{swift}"
