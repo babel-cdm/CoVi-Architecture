@@ -24,7 +24,7 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
 
     // MARK: - Properties
 
-    /// Preserve the row selection with `reloadData()` function is called
+    /// Preserve the row selection when `reloadData()` function is called.
     public var preserveRowsSelected = false
 
     private var tableViewDataSource: CoViTableViewDataSource?
@@ -38,7 +38,7 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
     /**
      Function to set the data source of table view.
 
-     The data source must adopt the CoViTableViewDataSource protocol. The data source is not retained.
+     The data source must adopt the `CoViTableViewDataSource` protocol. The data source is not retained.
 
      - Parameter dataSource: The object that acts as the data source of the table view.
      */
@@ -50,7 +50,7 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
     /**
      Function to set the delegate of table view.
 
-     The delegate must adopt the CoViTableViewDataSource protocol. The delegate is not retained.
+     The delegate must adopt the `CoViTableViewDataSource` protocol. The delegate is not retained.
 
      - Parameter delegate: The object that acts as the delegate of the table view.
      */

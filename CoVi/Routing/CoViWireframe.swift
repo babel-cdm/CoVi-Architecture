@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum RouteTransitionType {
+private enum RouteTransitionType {
     case root
     case push
     case pushModal
@@ -33,7 +33,8 @@ open class CoViWireframe {
     // MARK: - Properties
 
     /// Stack of views that exist in the application.
-    internal static var routerStack: [[UIViewController: RouteTransitionType]] = []
+    public static var routerStack: [Any] { stack }
+    private static var stack: [[UIViewController: RouteTransitionType]] = []
 
     // MARK: - Initializer
 
@@ -44,7 +45,7 @@ open class CoViWireframe {
     private func getLastNavigationController() -> UINavigationController? {
         var navigationController: UINavigationController?
 
-        for router in CoViWireframe.routerStack.reversed() {
+        for router in CoViWireframe.stack.reversed() {
             if let navController = router.keys.first as? UINavigationController {
                 navigationController = navController
                 break
@@ -57,7 +58,7 @@ open class CoViWireframe {
     private func getLastViewController(with routeTransitionType: RouteTransitionType? = nil) -> UIViewController? {
         var viewController: UIViewController?
 
-        for router in CoViWireframe.routerStack.reversed() {
+        for router in CoViWireframe.stack.reversed() {
             if let vController = router.keys.first, let transitionType = router.values.first {
                 if let routeTransitionType = routeTransitionType {
                     if routeTransitionType == transitionType {
@@ -77,7 +78,7 @@ open class CoViWireframe {
     private func getTotalViewsFromLastNavController() -> Int {
         var totaViewControllers = 0
 
-        for router in CoViWireframe.routerStack.reversed() {
+        for router in CoViWireframe.stack.reversed() {
             if let transitionType = router.values.first {
                 if transitionType != .root {
                     totaViewControllers += 1
@@ -93,7 +94,7 @@ open class CoViWireframe {
     private func isViewInStack(_ view: UIViewController) -> Bool {
         var isInStack = false
 
-        for router in CoViWireframe.routerStack {
+        for router in CoViWireframe.stack {
             if router.keys.first == view {
                 isInStack = true
                 break
@@ -105,14 +106,14 @@ open class CoViWireframe {
 
     private func addViewToStack(_ view: UIViewController, _ routeTransitionType: RouteTransitionType) {
         if !isViewInStack(view) {
-            CoViWireframe.routerStack.append([view: routeTransitionType])
+            CoViWireframe.stack.append([view: routeTransitionType])
         }
     }
 
     private func removeViewsToStackFromPushRoot(_ view: UIViewController) {
-        for routerEnumerated in CoViWireframe.routerStack.enumerated() {
+        for routerEnumerated in CoViWireframe.stack.enumerated() {
             if view == routerEnumerated.element.keys.first {
-                let lastIndex = CoViWireframe.routerStack.count - 1
+                let lastIndex = CoViWireframe.stack.count - 1
 
                 /** position "0" is root
                  position "1" is the root VC
@@ -121,7 +122,7 @@ open class CoViWireframe {
                 let nextVcRootIndex = routerEnumerated.offset + 2 // +2 for the reason explained above
 
                 if nextVcRootIndex <= lastIndex {
-                    CoViWireframe.routerStack.removeSubrange(nextVcRootIndex...lastIndex)
+                    CoViWireframe.stack.removeSubrange(nextVcRootIndex...lastIndex)
                 }
                 break
             }
@@ -129,12 +130,12 @@ open class CoViWireframe {
     }
 
     private func removeViewsToStackFromPresentModal(_ view: UIViewController) {
-        for routerEnumerated in CoViWireframe.routerStack.enumerated() {
+        for routerEnumerated in CoViWireframe.stack.enumerated() {
             if view == routerEnumerated.element.keys.first {
-                CoViWireframe.routerStack.removeSubrange(routerEnumerated.offset...CoViWireframe.routerStack.count - 1)
+                CoViWireframe.stack.removeSubrange(routerEnumerated.offset...CoViWireframe.stack.count - 1)
 
-                if CoViWireframe.routerStack.last?.values.first == .root {
-                    CoViWireframe.routerStack.removeLast()
+                if CoViWireframe.stack.last?.values.first == .root {
+                    CoViWireframe.stack.removeLast()
                 }
                 break
             }
@@ -164,7 +165,7 @@ open class CoViWireframe {
         let navigationController = CoViApplication.getNavigationController(rootVC: view)
         navigationController.pushRootViewController(animated: animated)
 
-        CoViWireframe.routerStack.removeAll()
+        CoViWireframe.stack.removeAll()
         addViewToStack(navigationController, .root)
         addViewToStack(view, .push)
     }
@@ -295,7 +296,7 @@ open class CoViWireframe {
     /// Pop the current ViewController when gesture has finished.
     public func popGesture() {
         if getTotalViewsFromLastNavController() > 1 {
-            CoViWireframe.routerStack.removeLast()
+            CoViWireframe.stack.removeLast()
         }
     }
 
