@@ -145,13 +145,24 @@ open class CoViWireframe {
     // MARK: - Public functions
 
     /**
-     Get the ViewController instance from a name.
+     Get the ViewController instance from a name/storyboard.
 
      - Parameter name: Storyboard's name.
+     - Parameter bundle: Project's Bundle. Default is nil.
      */
-    public func getViewFromStoryboard(name: String) -> UIViewController {
-        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
+    public func getViewFromStoryboard(name: String, bundle: Bundle? = nil) -> UIViewController {
+        let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: bundle)
         return storyboard.instantiateViewController(withIdentifier: name)
+    }
+
+    /**
+    Get the ViewController instance from a name/xib.
+
+    - Parameter name: Xib's name. Default is ViewController.self.
+    - Parameter bundle: Project's Bundle. Default is nil.
+    */
+    public func getViewFromXib<View: UIViewController>(name: String = String(describing: View.self), bundle: Bundle? = nil) -> View {
+        return View(nibName: name, bundle: bundle)
     }
 
     /**

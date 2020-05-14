@@ -20,6 +20,15 @@
 		9F761F3D23F456BF0030D9B2 /* CoViTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F761F3B23F456BF0030D9B2 /* CoViTableViewDelegate.swift */; };
 		9F761F4123F4583D0030D9B2 /* CoViTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F761F4023F4583D0030D9B2 /* CoViTableView.swift */; };
 		9F761F4323F458650030D9B2 /* CoViTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F761F4223F458650030D9B2 /* CoViTableViewCell.swift */; };
+		9F90A46B246D2D280092FDBB /* CoViCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A46A246D2D280092FDBB /* CoViCollectionView.swift */; };
+		9F90A471246D2E610092FDBB /* CoViCollectionViewDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A46E246D2E610092FDBB /* CoViCollectionViewDelegateFlowLayout.swift */; };
+		9F90A472246D2E610092FDBB /* CoViCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A46F246D2E610092FDBB /* CoViCollectionViewDataSource.swift */; };
+		9F90A473246D2E610092FDBB /* CoViCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A470246D2E610092FDBB /* CoViCollectionViewDelegate.swift */; };
+		9F90A476246D37A70092FDBB /* CoViCollectionViewDelegateImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A475246D37A70092FDBB /* CoViCollectionViewDelegateImpl.swift */; };
+		9F90A478246D38CE0092FDBB /* CoViCollectionViewDelegateFlowLayoutImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A477246D38CE0092FDBB /* CoViCollectionViewDelegateFlowLayoutImpl.swift */; };
+		9F90A47A246D3FC20092FDBB /* CoViCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A479246D3FC20092FDBB /* CoViCollectionViewCell.swift */; };
+		9F90A47D246D66DE0092FDBB /* CoViScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A47C246D66DE0092FDBB /* CoViScrollViewDelegate.swift */; };
+		9F90A47F246D71A40092FDBB /* CoViObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A47E246D71A40092FDBB /* CoViObjects.swift */; };
 		9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */; };
 		9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +49,15 @@
 		9F761F3B23F456BF0030D9B2 /* CoViTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViTableViewDelegate.swift; sourceTree = "<group>"; };
 		9F761F4023F4583D0030D9B2 /* CoViTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViTableView.swift; sourceTree = "<group>"; };
 		9F761F4223F458650030D9B2 /* CoViTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViTableViewCell.swift; sourceTree = "<group>"; };
+		9F90A46A246D2D280092FDBB /* CoViCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViCollectionView.swift; sourceTree = "<group>"; };
+		9F90A46E246D2E610092FDBB /* CoViCollectionViewDelegateFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViCollectionViewDelegateFlowLayout.swift; sourceTree = "<group>"; };
+		9F90A46F246D2E610092FDBB /* CoViCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		9F90A470246D2E610092FDBB /* CoViCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		9F90A475246D37A70092FDBB /* CoViCollectionViewDelegateImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViCollectionViewDelegateImpl.swift; sourceTree = "<group>"; };
+		9F90A477246D38CE0092FDBB /* CoViCollectionViewDelegateFlowLayoutImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViCollectionViewDelegateFlowLayoutImpl.swift; sourceTree = "<group>"; };
+		9F90A479246D3FC20092FDBB /* CoViCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViCollectionViewCell.swift; sourceTree = "<group>"; };
+		9F90A47C246D66DE0092FDBB /* CoViScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViScrollViewDelegate.swift; sourceTree = "<group>"; };
+		9F90A47E246D71A40092FDBB /* CoViObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViObjects.swift; sourceTree = "<group>"; };
 		9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViViewUtils.swift; sourceTree = "<group>"; };
 		9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,7 +169,9 @@
 		9F761F3723F456830030D9B2 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				9F90A47B246D66C80092FDBB /* ScrollView */,
 				9F761F3923F456AC0030D9B2 /* TableView */,
+				9F90A46D246D2D630092FDBB /* CollectionView */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -161,6 +181,7 @@
 			children = (
 				9F761F3E23F457A10030D9B2 /* Cells */,
 				9F761F3F23F457A50030D9B2 /* TableViews */,
+				9F90A46C246D2D350092FDBB /* CollectionViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				9F761F4223F458650030D9B2 /* CoViTableViewCell.swift */,
+				9F90A479246D3FC20092FDBB /* CoViCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -190,10 +212,39 @@
 			path = TableViews;
 			sourceTree = "<group>";
 		};
+		9F90A46C246D2D350092FDBB /* CollectionViews */ = {
+			isa = PBXGroup;
+			children = (
+				9F90A46A246D2D280092FDBB /* CoViCollectionView.swift */,
+				9F90A475246D37A70092FDBB /* CoViCollectionViewDelegateImpl.swift */,
+				9F90A477246D38CE0092FDBB /* CoViCollectionViewDelegateFlowLayoutImpl.swift */,
+			);
+			path = CollectionViews;
+			sourceTree = "<group>";
+		};
+		9F90A46D246D2D630092FDBB /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				9F90A46F246D2E610092FDBB /* CoViCollectionViewDataSource.swift */,
+				9F90A470246D2E610092FDBB /* CoViCollectionViewDelegate.swift */,
+				9F90A46E246D2E610092FDBB /* CoViCollectionViewDelegateFlowLayout.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		9F90A47B246D66C80092FDBB /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				9F90A47C246D66DE0092FDBB /* CoViScrollViewDelegate.swift */,
+			);
+			path = ScrollView;
+			sourceTree = "<group>";
+		};
 		9FBDA98B23ED9A01005039AC /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */,
+				9F90A47E246D71A40092FDBB /* CoViObjects.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -285,19 +336,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F90A47F246D71A40092FDBB /* CoViObjects.swift in Sources */,
 				9F41B7582320E942006A5857 /* BindableType.swift in Sources */,
 				9F761F3C23F456BF0030D9B2 /* CoViTableViewDataSource.swift in Sources */,
 				9F41B75E2320EA10006A5857 /* CoViApplication.swift in Sources */,
+				9F90A47A246D3FC20092FDBB /* CoViCollectionViewCell.swift in Sources */,
 				9F41B7552320E93A006A5857 /* CoViViewConstants.swift in Sources */,
+				9F90A46B246D2D280092FDBB /* CoViCollectionView.swift in Sources */,
+				9F90A472246D2E610092FDBB /* CoViCollectionViewDataSource.swift in Sources */,
+				9F90A476246D37A70092FDBB /* CoViCollectionViewDelegateImpl.swift in Sources */,
 				9F761F3D23F456BF0030D9B2 /* CoViTableViewDelegate.swift in Sources */,
 				9F761F4323F458650030D9B2 /* CoViTableViewCell.swift in Sources */,
 				9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */,
 				9F41B7522320E92A006A5857 /* CoViViewController.swift in Sources */,
 				9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */,
+				9F90A47D246D66DE0092FDBB /* CoViScrollViewDelegate.swift in Sources */,
 				9F761F4123F4583D0030D9B2 /* CoViTableView.swift in Sources */,
 				9F41B75B2320E94B006A5857 /* CoViWireframe.swift in Sources */,
 				9F41B7592320E942006A5857 /* CoViViewExtensions.swift in Sources */,
 				9F41B7532320E92A006A5857 /* CoViPresenter.swift in Sources */,
+				9F90A471246D2E610092FDBB /* CoViCollectionViewDelegateFlowLayout.swift in Sources */,
+				9F90A473246D2E610092FDBB /* CoViCollectionViewDelegate.swift in Sources */,
+				9F90A478246D38CE0092FDBB /* CoViCollectionViewDelegateFlowLayoutImpl.swift in Sources */,
 				9F70D5772342798B00353B8E /* CoViDisposeBag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
