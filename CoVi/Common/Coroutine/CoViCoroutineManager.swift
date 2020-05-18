@@ -1,5 +1,5 @@
 //
-//  CoroutineManager.swift
+//  CoViCoroutineManager.swift
 //  CoVi
 //
 //  Created by Jorge Guilabert Ibáñez on 14/05/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CoroutineManager {
+public class CoViCoroutineManager {
 
     public typealias Producer<T> = (_ consumer: Consumer<T>) -> Void
     public typealias Consumer<T> = (_ object: T) -> Void
@@ -19,8 +19,8 @@ public class CoroutineManager {
         var result: T? = nil
 
         guard !Thread.isMainThread else {
-            debugPrint("------- Error: CoroutineManager executed on the Main Thread. -------")
-            throw CoroutineError.mainThread
+            debugPrint("------- Error: CoViCoroutineManager executed on the Main Thread. -------")
+            throw CoViCoroutineError.mainThread
         }
 
         let semaphore = DispatchSemaphore(value: 0)
@@ -35,15 +35,15 @@ public class CoroutineManager {
         if let timeOutSeconds = timeOutSeconds {
             let timeOut = DispatchTime.now() + .seconds(timeOutSeconds)
             if semaphore.wait(timeout: timeOut) == .timedOut {
-                debugPrint("------- Error: CoroutineManager Timed Out. -------")
-                throw CoroutineError.timedOut
+                debugPrint("------- Error: CoViCoroutineManager Timed Out. -------")
+                throw CoViCoroutineError.timedOut
             }
         } else {
             semaphore.wait()
         }
 
         guard let finalResult = result else {
-            throw CoroutineError.unknown("------- Error: CoroutineManager with Result NULL. -------")
+            throw CoViCoroutineError.unknown("------- Error: CoViCoroutineManager with Result NULL. -------")
         }
 
         return finalResult
@@ -53,7 +53,7 @@ public class CoroutineManager {
 
 /*private class CoViBackgroudTask {
     init() {
-        let coroutineManager = CoroutineManager()
+        let coroutineManager = CoViCoroutineManager()
 
         // First way, returning opcional value:
         let _ = try? coroutineManager.execute(timeOutSeconds: 15) { (consumer: CoroutineManager.Consumer<String>) in
@@ -70,11 +70,11 @@ public class CoroutineManager {
             let _ = try coroutineManager.execute(timeOutSeconds: 5) { (consumer: CoroutineManager.Consumer<String>) in
                 consumer("")
             }
-        } catch CoroutineError.mainThread {
+        } catch CoViCoroutineError.mainThread {
             debugPrint("Main Thread Error")
-        } catch CoroutineError.timedOut {
+        } catch CoViCoroutineError.timedOut {
             debugPrint("Timed Out Error")
-        } catch CoroutineError.unknown(let description) {
+        } catch CoViCoroutineError.unknown(let description) {
             debugPrint(description)
         } catch {
             debugPrint("ERROR")

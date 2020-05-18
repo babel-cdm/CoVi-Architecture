@@ -29,8 +29,8 @@
 		9F90A47A246D3FC20092FDBB /* CoViCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A479246D3FC20092FDBB /* CoViCollectionViewCell.swift */; };
 		9F90A47D246D66DE0092FDBB /* CoViScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A47C246D66DE0092FDBB /* CoViScrollViewDelegate.swift */; };
 		9F90A47F246D71A40092FDBB /* CoViObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A47E246D71A40092FDBB /* CoViObjects.swift */; };
-		9F90A482246D89060092FDBB /* CoroutineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A481246D89060092FDBB /* CoroutineManager.swift */; };
-		9F90A486246D9A0D0092FDBB /* CoroutineError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A485246D9A0D0092FDBB /* CoroutineError.swift */; };
+		9F90A482246D89060092FDBB /* CoViCoroutineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A481246D89060092FDBB /* CoViCoroutineManager.swift */; };
+		9F90A486246D9A0D0092FDBB /* CoViCoroutineError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A485246D9A0D0092FDBB /* CoViCoroutineError.swift */; };
 		9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */; };
 		9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */; };
 /* End PBXBuildFile section */
@@ -60,8 +60,8 @@
 		9F90A479246D3FC20092FDBB /* CoViCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoViCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F90A47C246D66DE0092FDBB /* CoViScrollViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViScrollViewDelegate.swift; sourceTree = "<group>"; };
 		9F90A47E246D71A40092FDBB /* CoViObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViObjects.swift; sourceTree = "<group>"; };
-		9F90A481246D89060092FDBB /* CoroutineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoroutineManager.swift; sourceTree = "<group>"; };
-		9F90A485246D9A0D0092FDBB /* CoroutineError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoroutineError.swift; sourceTree = "<group>"; };
+		9F90A481246D89060092FDBB /* CoViCoroutineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViCoroutineManager.swift; sourceTree = "<group>"; };
+		9F90A485246D9A0D0092FDBB /* CoViCoroutineError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViCoroutineError.swift; sourceTree = "<group>"; };
 		9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViViewUtils.swift; sourceTree = "<group>"; };
 		9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -248,8 +248,8 @@
 		9F90A480246D88410092FDBB /* Coroutine */ = {
 			isa = PBXGroup;
 			children = (
-				9F90A485246D9A0D0092FDBB /* CoroutineError.swift */,
-				9F90A481246D89060092FDBB /* CoroutineManager.swift */,
+				9F90A485246D9A0D0092FDBB /* CoViCoroutineError.swift */,
+				9F90A481246D89060092FDBB /* CoViCoroutineManager.swift */,
 			);
 			path = Coroutine;
 			sourceTree = "<group>";
@@ -354,7 +354,7 @@
 				9F41B7582320E942006A5857 /* BindableType.swift in Sources */,
 				9F761F3C23F456BF0030D9B2 /* CoViTableViewDataSource.swift in Sources */,
 				9F41B75E2320EA10006A5857 /* CoViApplication.swift in Sources */,
-				9F90A482246D89060092FDBB /* CoroutineManager.swift in Sources */,
+				9F90A482246D89060092FDBB /* CoViCoroutineManager.swift in Sources */,
 				9F90A47A246D3FC20092FDBB /* CoViCollectionViewCell.swift in Sources */,
 				9F41B7552320E93A006A5857 /* CoViViewConstants.swift in Sources */,
 				9F90A46B246D2D280092FDBB /* CoViCollectionView.swift in Sources */,
@@ -368,7 +368,7 @@
 				9F90A47D246D66DE0092FDBB /* CoViScrollViewDelegate.swift in Sources */,
 				9F761F4123F4583D0030D9B2 /* CoViTableView.swift in Sources */,
 				9F41B75B2320E94B006A5857 /* CoViWireframe.swift in Sources */,
-				9F90A486246D9A0D0092FDBB /* CoroutineError.swift in Sources */,
+				9F90A486246D9A0D0092FDBB /* CoViCoroutineError.swift in Sources */,
 				9F41B7592320E942006A5857 /* CoViViewExtensions.swift in Sources */,
 				9F41B7532320E92A006A5857 /* CoViPresenter.swift in Sources */,
 				9F90A471246D2E610092FDBB /* CoViCollectionViewDelegateFlowLayout.swift in Sources */,
