@@ -312,7 +312,7 @@ extension UINavigationController {
      Set the NavigationBar back button image.
 
      If the image of the back button is changed, it will be changed for the entire application.
-     If you want to change only on one screen, it's recommended to use the *setNavBarButtons(backImage: "")* function.
+     If you want to change only on one screen, it's recommended to use the *`setNavBarButtons(backImage: "")`* function.
 
      - Parameter image: Image to display in the back button.
      */

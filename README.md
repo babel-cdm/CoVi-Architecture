@@ -19,7 +19,7 @@ You can se the documentation [here](https://github.com/babel-cdm/CoVi-Architectu
 [CocoaPods](https://cocoapods.org/) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate Alamofire into your Xcode project using CocoaPods, specify it in your `Podfile `:
 
 ```
-pod 'CoVi', '0.1.0'
+pod 'CoVi', '1.0.1'
 ```
 
 ### Carthage
@@ -27,7 +27,7 @@ pod 'CoVi', '0.1.0'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```
-github "babel-cdm/CoVi-Architecture" "0.1.0"
+github "babel-cdm/CoVi-Architecture" "1.0.1"
 ```
 
 ## License
