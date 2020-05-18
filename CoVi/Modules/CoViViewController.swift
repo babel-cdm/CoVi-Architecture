@@ -160,7 +160,7 @@ open class CoViViewController<Presenter>: UIViewController,
      - parameter notification: System notification.
      */
     @objc open func keyboardWasShown(_ notification: NSNotification) {
-        // Overriden function
+        // Overridden function
     }
 
     /**
@@ -169,7 +169,7 @@ open class CoViViewController<Presenter>: UIViewController,
      - parameter notification: System notification.
      */
     @objc open func keyboardWillBeHidden(_ notification: NSNotification) {
-        // Overriden function
+        // Overridden function
     }
 
     // MARK: - Navigation Bar

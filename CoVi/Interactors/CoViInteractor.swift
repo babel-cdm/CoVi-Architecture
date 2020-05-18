@@ -26,8 +26,8 @@ open class CoViInteractor<Input, Output, Process>: CoViDisposable {
     private var coviDisposeBag: CoViDisposeBag?
 
     /**
-     Thread where the `handle(_:_:_:_:)` function will be executed`.
-     This variable can be overriden to change the dispatch queue.
+     Thread where the `handle(_:_:_:_:)` function will be executed.
+     This variable can be overridden to change the dispatch queue.
      By default, the dispatchQueue is 'DispatchQueue.global(qos: .background)'
      */
     open var dispatchQueue: DispatchQueue {
@@ -36,7 +36,7 @@ open class CoViInteractor<Input, Output, Process>: CoViDisposable {
 
     // MARK: - Initializer
 
-    /// Initializer that adds an observer to know when the `deinit()` of the presenter is called, to de-initialize the interactor.
+    /// Initializer that adds an observer to know when the `deinit` of the presenter is called, to de-initialize the interactor.
     public init() {
         NotificationCenter.default
             .addObserver(self,

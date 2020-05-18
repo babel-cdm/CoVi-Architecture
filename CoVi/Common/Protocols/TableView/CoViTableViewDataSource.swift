@@ -6,8 +6,6 @@
 //  Copyright © 2020 Babel. All rights reserved.
 //
 
-import UIKit
-
 /**
  CoVi base table view data source.
  */
