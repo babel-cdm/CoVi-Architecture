@@ -45,7 +45,7 @@ open class CoViCollectionViewDelegateImpl: NSObject, UICollectionViewDelegate {
         if let shouldHighlightRowAt = collectionViewDelegate?.shouldHighlightRowAt {
             return shouldHighlightRowAt(collectionView.tag, indexPath)
         }
-        return false
+        return true
     }
 
     open func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

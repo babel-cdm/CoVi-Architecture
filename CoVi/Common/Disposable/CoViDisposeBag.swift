@@ -13,7 +13,13 @@ public protocol CoViDisposable {
     func dispose()
 }
 
-public class CoViDisposeBag {}
+public class CoViDisposeBag {
+
+    public init() {
+
+    }
+    
+}
 
 let disposeBagNotificationId = NSNotification.Name(rawValue: "disposeBagNotificationId")
 let disposeBagNotificationParameter = "disposeBagNotificationParameter"
