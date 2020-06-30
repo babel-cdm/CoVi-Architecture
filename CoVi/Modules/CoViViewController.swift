@@ -82,8 +82,19 @@ open class CoViViewController<Presenter>: UIViewController,
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         // Add listener to register the pop gesture
         navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(handlePopGesture))
-        // Add listener to register the dismiss gesture
-        //navigationController?.presentationController?.delegate = self // Commented because it causes memory leak with iOS <= 13.2
+
+        /**
+         Add listener to register the dismiss gesture.
+         (Be careful, because writing ".presentedViewController" without being modal,
+         causes memory leak with iOS <= 13.5)
+         */
+        if let navigationController = navigationController, let modalViewController = navigationController.presentedViewController {
+            // If the modal is presented by NavigationController.
+            modalViewController.presentationController?.delegate = self
+        } else if self.presentingViewController != nil {
+            // If the modal is presented by ViewController.
+            self.presentationController?.delegate = self
+        }
     }
 
     override open func viewDidAppear(_ animated: Bool) {
