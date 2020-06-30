@@ -12,7 +12,7 @@ open class CoViCollectionViewDelegateFlowLayoutImpl: CoViCollectionViewDelegateI
 
     // MARK: - Properties
 
-    private var collectionViewDelegateFlowLayout: CoViCollectionViewDelegateFlowLayout?
+    private weak var collectionViewDelegateFlowLayout: CoViCollectionViewDelegateFlowLayout?
 
     // MARK: - Initializer
 
