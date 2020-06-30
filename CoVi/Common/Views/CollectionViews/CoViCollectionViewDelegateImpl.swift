@@ -12,7 +12,7 @@ open class CoViCollectionViewDelegateImpl: NSObject, UICollectionViewDelegate {
 
     // MARK: - Properties
     
-    private var collectionViewDelegate: CoViCollectionViewDelegate?
+    private weak var collectionViewDelegate: CoViCollectionViewDelegate?
 
     // MARK: - Initializer
 

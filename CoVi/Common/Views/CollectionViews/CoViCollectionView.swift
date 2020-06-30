@@ -17,9 +17,9 @@ open class CoViCollectionView: UICollectionView, UICollectionViewDataSource {
 
     // MARK: - Properties
 
-    private var collectionViewDataSource: CoViCollectionViewDataSource?
-    private var customUICollectionViewDelegate: CoViCollectionViewDelegateImpl?
-    private var customUICollectionViewDelegateFlowLayout: CoViCollectionViewDelegateFlowLayoutImpl?
+    private weak var collectionViewDataSource: CoViCollectionViewDataSource?
+    private weak var customUICollectionViewDelegate: CoViCollectionViewDelegateImpl?
+    private weak var customUICollectionViewDelegateFlowLayout: CoViCollectionViewDelegateFlowLayoutImpl?
     private var cellForRowAtConfigurator: CellConfigurator?
 
     // MARK: - Functions
