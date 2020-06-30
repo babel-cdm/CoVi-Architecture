@@ -32,6 +32,7 @@
 		9F90A482246D89060092FDBB /* CoViCoroutineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A481246D89060092FDBB /* CoViCoroutineManager.swift */; };
 		9F90A486246D9A0D0092FDBB /* CoViCoroutineError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A485246D9A0D0092FDBB /* CoViCoroutineError.swift */; };
 		9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */; };
+		9FCF883E24AB430100BD89CC /* CoViScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF883D24AB430100BD89CC /* CoViScrollView.swift */; };
 		9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		9F90A481246D89060092FDBB /* CoViCoroutineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViCoroutineManager.swift; sourceTree = "<group>"; };
 		9F90A485246D9A0D0092FDBB /* CoViCoroutineError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViCoroutineError.swift; sourceTree = "<group>"; };
 		9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViViewUtils.swift; sourceTree = "<group>"; };
+		9FCF883D24AB430100BD89CC /* CoViScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViScrollView.swift; sourceTree = "<group>"; };
 		9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +186,7 @@
 		9F761F3823F4569C0030D9B2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FCF883C24AB42ED00BD89CC /* ScrollViews */,
 				9F761F3E23F457A10030D9B2 /* Cells */,
 				9F761F3F23F457A50030D9B2 /* TableViews */,
 				9F90A46C246D2D350092FDBB /* CollectionViews */,
@@ -261,6 +264,14 @@
 				9F90A47E246D71A40092FDBB /* CoViObjects.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		9FCF883C24AB42ED00BD89CC /* ScrollViews */ = {
+			isa = PBXGroup;
+			children = (
+				9FCF883D24AB430100BD89CC /* CoViScrollView.swift */,
+			);
+			path = ScrollViews;
 			sourceTree = "<group>";
 		};
 		9FE5CD222326AAE0009B03FD /* Interactors */ = {
@@ -360,6 +371,7 @@
 				9F90A46B246D2D280092FDBB /* CoViCollectionView.swift in Sources */,
 				9F90A472246D2E610092FDBB /* CoViCollectionViewDataSource.swift in Sources */,
 				9F90A476246D37A70092FDBB /* CoViCollectionViewDelegateImpl.swift in Sources */,
+				9FCF883E24AB430100BD89CC /* CoViScrollView.swift in Sources */,
 				9F761F3D23F456BF0030D9B2 /* CoViTableViewDelegate.swift in Sources */,
 				9F761F4323F458650030D9B2 /* CoViTableViewCell.swift in Sources */,
 				9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */,
@@ -515,7 +527,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -539,7 +551,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

@@ -27,11 +27,9 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
     /// Preserve the row selection when `reloadData()` function is called.
     public var preserveRowsSelected = false
 
-    private var tableViewDataSource: CoViTableViewDataSource?
-    private var tableViewDelegate: CoViTableViewDelegate?
+    private weak var tableViewDataSource: CoViTableViewDataSource?
+    private weak var tableViewDelegate: CoViTableViewDelegate?
     private var cellForRowAtConfigurator: CellConfigurator?
-
-    private var indexPathsSelected: [IndexPath] = []
 
     // MARK: - Functions
 
@@ -67,6 +65,7 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
     open func reloadData(cellForRowAtConfigurator: @escaping CellConfigurator) {
         self.cellForRowAtConfigurator = cellForRowAtConfigurator
 
+        var indexPathsSelected = [IndexPath]()
         if preserveRowsSelected, let indexPathsForSelectedRows = indexPathsForSelectedRows {
             indexPathsSelected = indexPathsForSelectedRows
         }
@@ -233,7 +232,7 @@ open class CoViTableView: UITableView, UITableViewDataSource, UITableViewDelegat
         if let coviCell = tableView.cellForRow(at: indexPath) as? CoViTableViewCell,
             let _ = coviCell.highlightColor {
             if coviCell.selectedBackgroundView != nil {
-                coviCell.selectedBackgroundView = nil
+                coviCell.setSelected(coviCell.isSelected, animated: true)
             } else {
                 coviCell.subviews.first?.removeFromSuperview()
             }

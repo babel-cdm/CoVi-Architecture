@@ -12,7 +12,7 @@ open class CoViCollectionViewDelegateImpl: NSObject, UICollectionViewDelegate {
 
     // MARK: - Properties
     
-    private var collectionViewDelegate: CoViCollectionViewDelegate?
+    private weak var collectionViewDelegate: CoViCollectionViewDelegate?
 
     // MARK: - Initializer
 
@@ -45,7 +45,7 @@ open class CoViCollectionViewDelegateImpl: NSObject, UICollectionViewDelegate {
         if let shouldHighlightRowAt = collectionViewDelegate?.shouldHighlightRowAt {
             return shouldHighlightRowAt(collectionView.tag, indexPath)
         }
-        return false
+        return true
     }
 
     open func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
