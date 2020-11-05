@@ -10,7 +10,7 @@ import Foundation
 
 public class CoViCoroutineManager {
 
-    public typealias Producer<T> = (_ consumer: Consumer<T>) -> Void
+    public typealias Producer<T> = (_ consumer: @escaping Consumer<T>) -> Void
     public typealias Consumer<T> = (_ object: T) -> Void
 
     public init() {}
