@@ -75,6 +75,17 @@ open class CoViWireframe {
         return viewController
     }
 
+    private func getLastPushTransitionIndex() -> Int? {
+        for (index, router) in CoViWireframe.stack.reversed().enumerated() {
+            if let transitionType = router.values.first {
+                if transitionType == .push || transitionType == .pushModal {
+                    return (CoViWireframe.stack.count - 1) - index
+                }
+            }
+        }
+        return nil
+    }
+
     private func getTotalViewsFromLastNavController() -> Int {
         var totaViewControllers = 0
 
@@ -106,7 +117,12 @@ open class CoViWireframe {
 
     private func addViewToStack(_ view: UIViewController, _ routeTransitionType: RouteTransitionType) {
         if !isViewInStack(view) {
-            CoViWireframe.stack.append([view: routeTransitionType])
+            if (routeTransitionType == .push || routeTransitionType == .pushModal),
+               let pushIndex = getLastPushTransitionIndex() {
+                CoViWireframe.stack.insert([view: routeTransitionType], at: pushIndex + 1)
+            } else {
+                CoViWireframe.stack.append([view: routeTransitionType])
+            }
         }
     }
 
@@ -306,15 +322,9 @@ open class CoViWireframe {
 
     /// Pop the current ViewController when gesture has finished.
     public func popGesture() {
-        if getTotalViewsFromLastNavController() > 1 {
-            for (index, router) in CoViWireframe.stack.reversed().enumerated() {
-                if let transitionType = router.values.first {
-                    if transitionType == .push || transitionType == .pushModal {
-                        CoViWireframe.stack.remove(at: (CoViWireframe.stack.count - 1) - index)
-                        break
-                    }
-                }
-            }
+        if getTotalViewsFromLastNavController() > 1,
+           let pushIndex = getLastPushTransitionIndex() {
+            CoViWireframe.stack.remove(at: pushIndex)
         }
     }
 
