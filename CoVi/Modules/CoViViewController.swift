@@ -105,6 +105,9 @@ open class CoViViewController<Presenter>: UIViewController,
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         presenter.willDisappear()
+
+        // Remove listener to register the pop gesture
+        navigationController?.interactivePopGestureRecognizer?.removeTarget(self, action: #selector(handlePopGesture))
     }
 
     override open func viewDidDisappear(_ animated: Bool) {

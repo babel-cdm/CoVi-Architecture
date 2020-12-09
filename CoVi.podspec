@@ -8,7 +8,7 @@ spec.summary = "CoVi lets users build awesome apps with professional architectur
 spec.requires_arc = true
 
 # 2
-spec.version = "1.0.3"
+spec.version = "1.0.4"
 
 # 3
 spec.license = { :type => "MIT", :file => "LICENSE" }
