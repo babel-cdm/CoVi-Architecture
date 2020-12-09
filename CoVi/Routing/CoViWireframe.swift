@@ -86,14 +86,14 @@ open class CoViWireframe {
         return nil
     }
 
-    private func getTotalViewsFromLastNavController() -> Int {
+    private func getTotalPushViewsFromLastNavController() -> Int {
         var totaViewControllers = 0
 
         for router in CoViWireframe.stack.reversed() {
             if let transitionType = router.values.first {
                 if transitionType == .push || transitionType == .pushModal {
                     totaViewControllers += 1
-                } else {
+                } else if transitionType == .root {
                     break
                 }
             }
@@ -322,7 +322,7 @@ open class CoViWireframe {
 
     /// Pop the current ViewController when gesture has finished.
     public func popGesture() {
-        if getTotalViewsFromLastNavController() > 1,
+        if getTotalPushViewsFromLastNavController() > 1,
            let pushIndex = getLastPushTransitionIndex() {
             CoViWireframe.stack.remove(at: pushIndex)
         }
