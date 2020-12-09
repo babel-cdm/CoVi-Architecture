@@ -71,41 +71,19 @@ extension UIView {
 
      - Parameters:
         - corners: Sides where you want to add a curved corner. By default are all corners.
-        - bounds: CGRect of the shadow. Only is used if the corners parameter is set. By default is 'self.bounds'.
-        - radius: Corner radius. If corners parameter is set, by default is 13; if it is not set, by default is 'layer.frame.height / 2'.
+        - radius: Corner radius. If it is not set, by default is 'layer.frame.height / 2'.
      */
-    public func setCorners(corners: UIRectCorner? = nil,
-                           bounds: CGRect? = nil,
+    public func setCorners(corners: CACornerMask? = nil,
                            radius: CGFloat? = nil) {
+
         if let corners = corners {
-            let path: UIBezierPath!
-            var width = 13
-            var height = 13
-            var rect = self.bounds
+            layer.maskedCorners = corners
+        }
 
-            if let bounds = bounds {
-                rect = bounds
-            }
-
-            if let radius = radius {
-                width = Int(radius)
-                height = Int(radius)
-            }
-
-            path = UIBezierPath(roundedRect: rect,
-                                byRoundingCorners: corners,
-                                cornerRadii: CGSize(width: width, height: height))
-
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-
-            layer.mask = maskLayer
+        if let radius = radius {
+            layer.cornerRadius = radius
         } else {
-            if let radius = radius {
-                layer.cornerRadius = radius
-            } else {
-                layer.cornerRadius = layer.frame.height / 2
-            }
+            layer.cornerRadius = layer.frame.height / 2
         }
     }
 
