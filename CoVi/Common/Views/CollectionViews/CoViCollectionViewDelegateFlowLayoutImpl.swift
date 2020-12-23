@@ -16,7 +16,7 @@ open class CoViCollectionViewDelegateFlowLayoutImpl: CoViCollectionViewDelegateI
 
     // MARK: - Initializer
 
-    init(_ delegate: CoViCollectionViewDelegateFlowLayout?) {
+    public init(_ delegate: CoViCollectionViewDelegateFlowLayout?) {
         self.collectionViewDelegateFlowLayout = delegate
         super.init(delegate)
     }
