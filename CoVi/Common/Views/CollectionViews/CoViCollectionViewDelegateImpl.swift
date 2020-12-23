@@ -16,7 +16,7 @@ open class CoViCollectionViewDelegateImpl: NSObject, UICollectionViewDelegate {
 
     // MARK: - Initializer
 
-    init(_ delegate: CoViCollectionViewDelegate?) {
+    public init(_ delegate: CoViCollectionViewDelegate?) {
         self.collectionViewDelegate = delegate
         super.init()
     }
