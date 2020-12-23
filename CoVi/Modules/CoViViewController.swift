@@ -159,12 +159,12 @@ open class CoViViewController<Presenter>: UIViewController,
 
     /**
      Add keyboard observers to notify when the keyboard is displayed.
-     To listen the notifications, its necessary override 'keyboardWasShown' and 'keyboardWillBeHidden' functions.
+     To listen the notifications, its necessary override 'onKeyboardWasShown' and 'onKeyboardWillBeHidden' functions.
      */
     public func addKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown),
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWasShown),
                                                name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden),
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillBeHidden),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
@@ -173,7 +173,7 @@ open class CoViViewController<Presenter>: UIViewController,
 
      - parameter notification: System notification.
      */
-    @objc open func keyboardWasShown(_ notification: NSNotification) {
+    @objc open func onKeyboardWasShown(_ notification: NSNotification) {
         // Overridden function
     }
 
@@ -182,7 +182,7 @@ open class CoViViewController<Presenter>: UIViewController,
 
      - parameter notification: System notification.
      */
-    @objc open func keyboardWillBeHidden(_ notification: NSNotification) {
+    @objc open func onKeyboardWillBeHidden(_ notification: NSNotification) {
         // Overridden function
     }
 
