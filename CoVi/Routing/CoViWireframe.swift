@@ -20,6 +20,7 @@ public protocol CoViWireframeProtocol: class {
     func pop(animated: Bool)
     func popModalToRoot(animated: Bool)
     func popModal(animated: Bool)
+    func popToViewController(_ vc: UIViewController, animated: Bool)
     func dismissModal(animated: Bool, completion: (() -> Void)?)
     func popGesture()
     func dismissGesture()
@@ -155,6 +156,24 @@ open class CoViWireframe {
                 }
                 break
             }
+        }
+    }
+
+    private func getViewControllerIndex(_ vc: UIViewController) -> Int? {
+        for (index, router) in CoViWireframe.stack.reversed().enumerated() {
+            if let viewController = router.keys.first {
+                if viewController == vc  {
+                    return (CoViWireframe.stack.count - 1) - index
+                }
+            }
+        }
+        return nil
+    }
+
+    private func removeViewControllers(above index: Int?) {
+        if let indexVC = index,
+           indexVC < CoViWireframe.stack.count-1 {
+            CoViWireframe.stack.removeSubrange((indexVC+1)...CoViWireframe.stack.count-1)
         }
     }
 
@@ -304,6 +323,21 @@ open class CoViWireframe {
         navigationController.popModalViewController(animated: animated)
 
         popGesture()
+    }
+
+    /**
+     Pop to a specific ViewController.
+
+     - Parameters:
+        - vc: The view controller that you want to be at the top of the stack. This view controller must currently be on the navigation stack.
+        - animated: Boolean that decides if the transition is animated. By default is true.
+     */
+    public func popToViewController(_ vc: UIViewController, animated: Bool) {
+        let navigationController = getLastNavigationController() ?? CoViApplication.getNavigationController()
+        navigationController.popToViewController(vc, animated: animated)
+
+        let indexVC = getViewControllerIndex(vc)
+        removeViewControllers(above: indexVC)
     }
 
     /**
