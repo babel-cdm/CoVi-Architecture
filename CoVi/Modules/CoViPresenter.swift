@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol CoViPresenterProtocol: class {
+public protocol CoViPresenterProtocol: AnyObject {
     func didLoad()
     func willAppear()
     func didAppear()
@@ -21,7 +21,7 @@ public protocol CoViPresenterProtocol: class {
     func handleDismissEndedGesture()
 }
 
-private protocol CoViPresenterDependencies: class {
+private protocol CoViPresenterDependencies: AnyObject {
     associatedtype View
     associatedtype Router
 

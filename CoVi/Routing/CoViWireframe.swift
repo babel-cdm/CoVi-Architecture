@@ -15,7 +15,7 @@ private enum RouteTransitionType {
     case modal
 }
 
-public protocol CoViWireframeProtocol: class {
+public protocol CoViWireframeProtocol: AnyObject {
     func popToRoot(animated: Bool)
     func pop(animated: Bool)
     func popModalToRoot(animated: Bool)

@@ -9,7 +9,7 @@
 /**
  CoVi base table view delegate.
  */
-@objc public protocol CoViTableViewDelegate: class {
+@objc public protocol CoViTableViewDelegate: AnyObject {
     @objc optional func heightForRowAt(_ tableViewTag: Int, _ indexPath: IndexPath) -> Float
     @objc optional func estimatedHeightForRowAt(_ tableViewTag: Int, _ indexPath: IndexPath) -> Float
     @objc optional func didSelectRowAt(_ tableViewTag: Int, _ indexPath: IndexPath)

@@ -9,7 +9,7 @@
 /**
  CoVi base table view data source.
  */
-@objc public protocol CoViTableViewDataSource: class {
+@objc public protocol CoViTableViewDataSource: AnyObject {
     func numberOfRowsInSection(_ tableViewTag: Int, _ section: Int) -> Int
     @objc optional func numberOfSections(_ tableViewTag: Int) -> Int
     @objc optional func canEditRowAt(_ tableViewTag: Int, _ indexPath: IndexPath) -> Bool

@@ -9,7 +9,7 @@
 /**
  CoVi base scroll view delegate.
  */
-@objc public protocol CoViScrollViewDelegate: class {
+@objc public protocol CoViScrollViewDelegate: AnyObject {
     @objc optional func scrollViewDidScroll(_ scrollViewTag: Int)
     @objc optional func scrollViewDidChangeAdjustedContentInset(_ scrollViewTag: Int)
     @objc optional func scrollViewDidEndScrollingAnimation(_ scrollViewTag: Int)
