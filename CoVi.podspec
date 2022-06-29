@@ -1,14 +1,14 @@
 Pod::Spec.new do |spec|
 
 # 1
-spec.platform = :ios
 spec.ios.deployment_target = '11.0'
+spec.watchos.deployment_target = '4.0'
 spec.name = "CoVi"
 spec.summary = "CoVi lets users build awesome apps with professional architecture in minutes."
 spec.requires_arc = true
 
 # 2
-spec.version = "1.1.1"
+spec.version = "1.2.0"
 
 # 3
 spec.license = { :type => "MIT", :file => "LICENSE" }
