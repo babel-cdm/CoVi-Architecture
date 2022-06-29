@@ -9,6 +9,7 @@ You can se the documentation [here](https://github.com/babel-cdm/CoVi-Architectu
 ## Requirements
 
 * iOS 11.0
+* watchOS 4.0
 * Xcode 11.0+
 * Swift 5+
 
@@ -19,7 +20,7 @@ You can se the documentation [here](https://github.com/babel-cdm/CoVi-Architectu
 [CocoaPods](https://cocoapods.org/) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate Alamofire into your Xcode project using CocoaPods, specify it in your `Podfile `:
 
 ```
-pod 'CoVi', '1.1.1'
+pod 'CoVi', '1.2.0'
 ```
 
 ### Carthage
