@@ -9,7 +9,7 @@
 /**
  CoVi base collection view data source.
  */
-@objc public protocol CoViCollectionViewDataSource: class {
+@objc public protocol CoViCollectionViewDataSource: AnyObject {
     func numberOfItemsInSection(_ collectionViewTag: Int, _ section: Int) -> Int
     @objc optional func numberOfSections(_ collectionViewTag: Int) -> Int
 }
