@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9F41B73F2320E7C8006A5857"
                BuildableName = "CoVi.framework"
-               BlueprintName = "CoVi"
+               BlueprintName = "CoVi iOS"
                ReferencedContainer = "container:CoVi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -52,7 +52,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9F41B73F2320E7C8006A5857"
             BuildableName = "CoVi.framework"
-            BlueprintName = "CoVi"
+            BlueprintName = "CoVi iOS"
             ReferencedContainer = "container:CoVi.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
