@@ -34,6 +34,16 @@
 		9FBDA98D23ED9A1F005039AC /* CoViViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */; };
 		9FCF883E24AB430100BD89CC /* CoViScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF883D24AB430100BD89CC /* CoViScrollView.swift */; };
 		9FE5CD242326AAFC009B03FD /* CoViInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */; };
+		FD2686082872BDF1000F9645 /* CoVi_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = FD2686072872BDF1000F9645 /* CoVi_watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FD26860C2872C162000F9645 /* CoViInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */; };
+		FD26860E2872C168000F9645 /* CoViDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F70D5762342798B00353B8E /* CoViDisposeBag.swift */; };
+		FD26860F2872C178000F9645 /* CoViCoroutineError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A485246D9A0D0092FDBB /* CoViCoroutineError.swift */; };
+		FD2686102872C178000F9645 /* CoViCoroutineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90A481246D89060092FDBB /* CoViCoroutineManager.swift */; };
+		FD2686112872C178000F9645 /* CoViViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F41B7542320E93A006A5857 /* CoViViewConstants.swift */; };
+		FD2686122872C178000F9645 /* BindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F41B7562320E942006A5857 /* BindableType.swift */; };
+		FD2686242872C178000F9645 /* CoViWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1471A5286ECB84009B24C8 /* CoViWireframe.swift */; };
+		FD2686252872C178000F9645 /* CoViInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1471A2286EC71E009B24C8 /* CoViInterfaceController.swift */; };
+		FD2686272872C178000F9645 /* CoViPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F41B7512320E92A006A5857 /* CoViPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,10 +76,21 @@
 		9FBDA98C23ED9A1F005039AC /* CoViViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViViewUtils.swift; sourceTree = "<group>"; };
 		9FCF883D24AB430100BD89CC /* CoViScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViScrollView.swift; sourceTree = "<group>"; };
 		9FE5CD232326AAFC009B03FD /* CoViInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViInteractor.swift; sourceTree = "<group>"; };
+		FD1471A2286EC71E009B24C8 /* CoViInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViInterfaceController.swift; sourceTree = "<group>"; };
+		FD1471A5286ECB84009B24C8 /* CoViWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoViWireframe.swift; sourceTree = "<group>"; };
+		FD2686052872BDF1000F9645 /* CoVi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoVi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD2686072872BDF1000F9645 /* CoVi_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoVi_watchOS.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9F41B73D2320E7C8006A5857 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD2686022872BDF1000F9645 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -82,7 +103,9 @@
 		9F41B7362320E7C8006A5857 = {
 			isa = PBXGroup;
 			children = (
+				FD26862E2872DB1E000F9645 /* Core */,
 				9F41B7422320E7C8006A5857 /* CoVi */,
+				FD2686062872BDF1000F9645 /* CoVi watchOS */,
 				9F41B7412320E7C8006A5857 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				9F41B7402320E7C8006A5857 /* CoVi.framework */,
+				FD2686052872BDF1000F9645 /* CoVi.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,7 +126,6 @@
 				9F41B74B2320E83A006A5857 /* Common */,
 				9F41B74E2320E882006A5857 /* Routing */,
 				9F41B74F2320E89A006A5857 /* Modules */,
-				9FE5CD222326AAE0009B03FD /* Interactors */,
 				9F41B7432320E7C8006A5857 /* CoVi.h */,
 				9F41B7442320E7C8006A5857 /* Info.plist */,
 			);
@@ -112,9 +135,6 @@
 		9F41B74B2320E83A006A5857 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				9F70D5752342796A00353B8E /* Disposable */,
-				9F90A480246D88410092FDBB /* Coroutine */,
-				9F41B74C2320E848006A5857 /* Constants */,
 				9F41B74D2320E84F006A5857 /* Extensions */,
 				9FBDA98B23ED9A01005039AC /* Utils */,
 				9F761F3723F456830030D9B2 /* Protocols */,
@@ -134,7 +154,6 @@
 		9F41B74D2320E84F006A5857 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				9F41B7562320E942006A5857 /* BindableType.swift */,
 				9F41B7572320E942006A5857 /* CoViViewExtensions.swift */,
 			);
 			path = Extensions;
@@ -152,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				9F41B7502320E92A006A5857 /* CoViViewController.swift */,
-				9F41B7512320E92A006A5857 /* CoViPresenter.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -282,6 +300,69 @@
 			path = Interactors;
 			sourceTree = "<group>";
 		};
+		FD2686062872BDF1000F9645 /* CoVi watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				FD2686312872DB81000F9645 /* Routing */,
+				FD2686322872DB9D000F9645 /* Modules */,
+				FD2686072872BDF1000F9645 /* CoVi_watchOS.h */,
+			);
+			path = "CoVi watchOS";
+			sourceTree = "<group>";
+		};
+		FD26862E2872DB1E000F9645 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				FD26862F2872DB2F000F9645 /* Common */,
+				FD2686332872DBAD000F9645 /* Modules */,
+				9FE5CD222326AAE0009B03FD /* Interactors */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		FD26862F2872DB2F000F9645 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9F70D5752342796A00353B8E /* Disposable */,
+				9F90A480246D88410092FDBB /* Coroutine */,
+				9F41B74C2320E848006A5857 /* Constants */,
+				FD2686302872DB60000F9645 /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		FD2686302872DB60000F9645 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9F41B7562320E942006A5857 /* BindableType.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FD2686312872DB81000F9645 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				FD1471A5286ECB84009B24C8 /* CoViWireframe.swift */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		FD2686322872DB9D000F9645 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				FD1471A2286EC71E009B24C8 /* CoViInterfaceController.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		FD2686332872DBAD000F9645 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				9F41B7512320E92A006A5857 /* CoViPresenter.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -293,12 +374,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD2686002872BDF1000F9645 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD2686082872BDF1000F9645 /* CoVi_watchOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9F41B73F2320E7C8006A5857 /* CoVi */ = {
+		9F41B73F2320E7C8006A5857 /* CoVi iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9F41B7482320E7C8006A5857 /* Build configuration list for PBXNativeTarget "CoVi" */;
+			buildConfigurationList = 9F41B7482320E7C8006A5857 /* Build configuration list for PBXNativeTarget "CoVi iOS" */;
 			buildPhases = (
 				9F41B73B2320E7C8006A5857 /* Headers */,
 				9F41B73C2320E7C8006A5857 /* Sources */,
@@ -309,9 +398,27 @@
 			);
 			dependencies = (
 			);
-			name = CoVi;
+			name = "CoVi iOS";
 			productName = CoVi;
 			productReference = 9F41B7402320E7C8006A5857 /* CoVi.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FD2686042872BDF1000F9645 /* CoVi watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD2686092872BDF1000F9645 /* Build configuration list for PBXNativeTarget "CoVi watchOS" */;
+			buildPhases = (
+				FD2686002872BDF1000F9645 /* Headers */,
+				FD2686012872BDF1000F9645 /* Sources */,
+				FD2686022872BDF1000F9645 /* Frameworks */,
+				FD2686032872BDF1000F9645 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CoVi watchOS";
+			productName = "CoVi watchOS";
+			productReference = FD2686052872BDF1000F9645 /* CoVi.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -326,6 +433,9 @@
 					9F41B73F2320E7C8006A5857 = {
 						CreatedOnToolsVersion = 10.3;
 						LastSwiftMigration = 1030;
+					};
+					FD2686042872BDF1000F9645 = {
+						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
 			};
@@ -342,13 +452,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9F41B73F2320E7C8006A5857 /* CoVi */,
+				9F41B73F2320E7C8006A5857 /* CoVi iOS */,
+				FD2686042872BDF1000F9645 /* CoVi watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9F41B73E2320E7C8006A5857 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD2686032872BDF1000F9645 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -388,6 +506,22 @@
 				9F90A473246D2E610092FDBB /* CoViCollectionViewDelegate.swift in Sources */,
 				9F90A478246D38CE0092FDBB /* CoViCollectionViewDelegateFlowLayoutImpl.swift in Sources */,
 				9F70D5772342798B00353B8E /* CoViDisposeBag.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD2686012872BDF1000F9645 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD26860F2872C178000F9645 /* CoViCoroutineError.swift in Sources */,
+				FD2686102872C178000F9645 /* CoViCoroutineManager.swift in Sources */,
+				FD2686112872C178000F9645 /* CoViViewConstants.swift in Sources */,
+				FD2686122872C178000F9645 /* BindableType.swift in Sources */,
+				FD2686242872C178000F9645 /* CoViWireframe.swift in Sources */,
+				FD2686252872C178000F9645 /* CoViInterfaceController.swift in Sources */,
+				FD2686272872C178000F9645 /* CoViPresenter.swift in Sources */,
+				FD26860C2872C162000F9645 /* CoViInteractor.swift in Sources */,
+				FD26860E2872C168000F9645 /* CoViDisposeBag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,7 +580,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -455,6 +589,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -504,7 +639,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -513,6 +648,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -532,7 +668,7 @@
 				);
 				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -556,11 +692,73 @@
 				);
 				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FD26860A2872BDF1000F9645 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Babel SI. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi.watchOS;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Debug;
+		};
+		FD26860B2872BDF1000F9645 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Babel SI. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = es.babel.CoVi.watchOS;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -576,11 +774,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9F41B7482320E7C8006A5857 /* Build configuration list for PBXNativeTarget "CoVi" */ = {
+		9F41B7482320E7C8006A5857 /* Build configuration list for PBXNativeTarget "CoVi iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9F41B7492320E7C8006A5857 /* Debug */,
 				9F41B74A2320E7C8006A5857 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD2686092872BDF1000F9645 /* Build configuration list for PBXNativeTarget "CoVi watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD26860A2872BDF1000F9645 /* Debug */,
+				FD26860B2872BDF1000F9645 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
