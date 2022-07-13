@@ -1,14 +1,14 @@
 Pod::Spec.new do |spec|
 
 # 1
-spec.platform = :ios
 spec.ios.deployment_target = '11.0'
+spec.watchos.deployment_target = '4.0'
 spec.name = "CoVi"
 spec.summary = "CoVi lets users build awesome apps with professional architecture in minutes."
 spec.requires_arc = true
 
 # 2
-spec.version = "1.1.1"
+spec.version = "1.2.0"
 
 # 3
 spec.license = { :type => "MIT", :file => "LICENSE" }
@@ -27,7 +27,9 @@ spec.source = { :git => "https://github.com/babel-cdm/CoVi-Architecture.git",
 #spec.framework = "UIKit"
 
 # 8
-spec.source_files = "CoVi/**/*.{swift}"
+spec.source_files = "Core/**/*.{swift}"
+spec.ios.source_files = "CoVi/**/*.{swift}"
+spec.watchos.source_files = "CoVi watchOS/**/*.{swift}"
 
 # 9
 #spec.resources = "CoVi/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"

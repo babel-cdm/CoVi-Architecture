@@ -8,9 +8,9 @@
 
 import UIKit
 
-public protocol CoViViewProtocol: class {}
+public protocol CoViViewProtocol: AnyObject {}
 
-private protocol CoViViewDependencies: class {
+private protocol CoViViewDependencies: AnyObject {
     associatedtype Presenter
 
     func getPresenter() -> Presenter?

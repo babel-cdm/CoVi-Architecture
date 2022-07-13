@@ -8,12 +8,14 @@
 
 import Foundation
 
-public protocol CoViPresenterProtocol: class {
+public protocol CoViPresenterProtocol: AnyObject {
     func didLoad()
     func willAppear()
     func didAppear()
     func willDisappear()
     func didDisappear()
+    func willActivate()
+    func didDeactivate()
     func onNavBarLeftButtonClicked()
     func onNavBarRightButtonClicked(_ tag: Int)
     func handlePopBeganGesture()
@@ -21,7 +23,7 @@ public protocol CoViPresenterProtocol: class {
     func handleDismissEndedGesture()
 }
 
-private protocol CoViPresenterDependencies: class {
+private protocol CoViPresenterDependencies: AnyObject {
     associatedtype View
     associatedtype Router
 
@@ -98,12 +100,12 @@ open class CoViPresenter<View, Router>: CoViPresenterDependencies {
     open func willAppear() {}
 
     /**
-     Called when `viewDidAppear(_:)` function of ViewController is called.
+     Called when `viewDidAppear(_:)` functions from ViewController and WKInterfaceController are called.
      */
     open func didAppear() {}
 
     /**
-     Called when `viewWillDisappear(_:)` function of ViewController is called.
+     Called when `viewWillDisappear(_:)` functions from ViewController and WKInterfaceController are called.
      */
     open func willDisappear() {}
 
@@ -111,7 +113,8 @@ open class CoViPresenter<View, Router>: CoViPresenterDependencies {
      Called when `viewDidDisappear(_:)` function of ViewController is called.
      */
     open func didDisappear() {}
-
+    
+#if os(iOS)
     /**
      Called when the left button of NavigationController is clicked.
      By default, this function go back in the Router.
@@ -119,7 +122,22 @@ open class CoViPresenter<View, Router>: CoViPresenterDependencies {
     open func onNavBarLeftButtonClicked() {
         router.pop(animated: true)
     }
-
+    
+    /**
+     Called when the user finishes the "pop" closing gesture.
+     */
+    open func handlePopEndedGesture() {
+        router.popGesture()
+    }
+    
+    /**
+     Called when the user finishes the "dismiss" closing gesture.
+     */
+    open func handleDismissEndedGesture() {
+        router.dismissGesture()
+    }
+    
+#endif
     /**
      Called when the right buttons of NavigationController are clicked.
 
@@ -133,17 +151,13 @@ open class CoViPresenter<View, Router>: CoViPresenterDependencies {
     open func handlePopBeganGesture() {}
 
     /**
-     Called when the user finishes the "pop" closing gesture.
+     Called when `willActivate()` function of WKInterfaceController is called.
      */
-    open func handlePopEndedGesture() {
-        router.popGesture()
-    }
-
+    open func willActivate() {}
+    
     /**
-     Called when the user finishes the "dismiss" closing gesture.
+     Called when `didDeactivate()` function of WKInterfaceController is called.
      */
-    open func handleDismissEndedGesture() {
-        router.dismissGesture()
-    }
+    open func didDeactivate() {}
 
 }
